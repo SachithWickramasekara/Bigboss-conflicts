@@ -81,3 +81,7 @@ def manage_user():
                 print(e)
                 return {"data":"role not allowed"}
             return render_template("users_manage/manage_companies.html")
+
+@user_control.route(rule='/user-settings')
+def user_settings():
+    return render_template('user-settings.html')

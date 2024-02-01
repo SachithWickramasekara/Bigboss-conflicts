@@ -140,27 +140,23 @@ def create_bill_page():
             company_name=request.form["company"]
             supplier=request.form["supplier"]
             form_comment=request.form["comment"]
-            # doc_type=request.form["doc_type"]
+            doc_type=request.form["doc_type"]
             account_type=request.form['acc_type']
             # print(len(form_data))
             print("about to upload")
             for file in form_data:
-                timestamp_name=str(round(datetime.datetime.utcnow().timestamp()))
-                upload_name=timestamp_name+"_"+uploaded_by
                 if file and allowed_file(file.filename):
                     print(file)
                     if get_file_extension(file.filename)=="pdf":
                         split_pdf_and_upload_to_s3(file.read(), bucket_name, f"bills-processing/{upload_name}/{get_file_name(file.filename)}")
                     else:
                         s3.put_object(Body=file,Bucket=bucket_name,Key=f"bills-processing/{upload_name}/{file.filename}")
-                    data_to_insert={"account_type":account_type,"supplier":supplier,"user":uploaded_by,'document_name':upload_name,"upload_time":datetime.datetime.utcnow().timestamp(),"comment":form_comment,"status":"Created","upload_company":company_name,"file_name":file.filename}
-                    uploads.insert_one(data_to_insert)
                 else:
                     flash(message="Invalid File Format",category='danger')
                     return redirect(url_for('bills.create_bill_page'))
-            
+            data_to_insert={"account_type":account_type,"document_type":doc_type,"supplier":supplier,"user":uploaded_by,'document_name':upload_name,"upload_time":datetime.datetime.utcnow().timestamp(),"comment":form_comment,"status":"Created","upload_company":company_name}
             # s3.put_object(Body=form_data,Bucket=bucket_name,Key=f"bills/{upload_name}/{upload_name}")
-            
+            uploads.insert_one(data_to_insert)
             print("upload success")
             flash(message="File uploaded sucessfully",category='info')
             return redirect(url_for('bills.create_bill_page'))
@@ -378,11 +374,12 @@ def make_pending():
 
     else:
         return redirect(url_for('auth.login'))
-
+    
 @bills.route(rule="/document_queue")
 def document_queue():
     return render_template("document-queue.html")
- 
+
 @bills.route(rule="/view-document")
 def view_document():
     return render_template("view-document.html")
+

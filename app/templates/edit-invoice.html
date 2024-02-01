@@ -289,9 +289,116 @@
                                         </td>
                                     </tr>
                                     {% endfor %}
-                                  
 
+                                    <tr>
+                                        <td><input type="text" value="tax applicable" name="description" required
+                                                placeholder="Description">
+                                        </td>
+                                        <td><input type="text" value="" name="account" id="account_id_0" required
+                                                placeholder="Account">
+                                        </td>
+                                        <td><input type="text" value="1" name="quantity" required placeholder="0">
+                                        </td>
+                                        <td><input type="number" value="0" name="unit_price" required placeholder="0">
+                                        </td>
+                                        <td>
+                                            <select name="tax_type" class="form-control" id="">
+                                                {% for i in tax_type_list %}
+                                                <option value="{{ i['code'] }}" id="">{{
+                                                    i['code']+'-'+i['content']+
+                                                    '-'+i['taxtype'] }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="total_amount" value="0" required>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button type="button" id="removeRow"
+                                                    class="btn btn-outline-danger btn-sm mr-3"><i
+                                                        class="material-icons fs-2 mr-0">close</i></button>
+                                                <!-- <button type="button" id="removeRow"
+                                                                                                    class="btn btn-danger btn-sm py-0">x</button> -->
+                                                <button type="button" class="btn btn-outline-info btn-sm"><i
+                                                        class="material-icons fs-2 mr-0">add</i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" value="tax not applicable" name="description" required
+                                                placeholder="Description"></td>
+                                        <td><input type="text" value="" name="account" id="account_id_0" required
+                                                placeholder="Account">
+                                        </td>
+                                        <td><input type="text" value="1" name="quantity" required placeholder="0">
+                                        </td>
+                                        <td><input type="number" value="0" name="unit_price" required placeholder="0">
+                                        </td>
+                                        <td>
+                                            <select name="tax_type" class="form-control" id="">
+                                                {% for i in tax_type_list %}
+                                                <option value="{{ i['code'] }}" id="">{{
+                                                    i['code']+'-'+i['content']+
+                                                    '-'+i['taxtype'] }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="total_amount" value="0" required>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button type="button" id="removeRow"
+                                                    class="btn btn-outline-danger btn-sm mr-3"><i
+                                                        class="material-icons fs-2 mr-0">close</i></button>
+                                                <!-- <button type="button" id="removeRow"
+                                                                                                class="btn btn-danger btn-sm py-0">x</button> -->
+                                                <button type="button" class="btn btn-outline-info btn-sm"><i
+                                                        class="material-icons fs-2 mr-0">add</i></button>
+                                            </div>
 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" value="net amount" name="description" required
+                                                placeholder="Description">
+                                        </td>
+                                        <td><input type="text" value="" name="account" id="account_id_0" required
+                                                placeholder="Account">
+                                        </td>
+                                        <td><input type="text" value="1" name="quantity" required placeholder="0">
+                                        </td>
+                                        <td><input type="number" value="0" name="unit_price" required placeholder="0">
+                                        </td>
+                                        <td>
+                                            <select name="tax_type" class="form-control" id="">
+                                                {% for i in tax_type_list %}
+                                                <option value="{{ i['code'] }}" id="">{{
+                                                    i['code']+'-'+i['content']+
+                                                    '-'+i['taxtype'] }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="total_amount" value="0" required>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button type="button" id="removeRow"
+                                                    class="btn btn-outline-danger btn-sm mr-3"><i
+                                                        class="material-icons fs-2 mr-0">close</i></button>
+                                                <!-- <button type="button" id="removeRow"
+                                                                                            class="btn btn-danger btn-sm py-0">x</button> -->
+                                                <button type="button" class="btn btn-outline-info btn-sm"><i
+                                                        class="material-icons fs-2 mr-0">add</i></button>
+                                            </div>
+
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                             {% endif %}

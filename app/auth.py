@@ -47,12 +47,20 @@ def login():
     print("get method working")
     return render_template("sign-in.html")
 
+@auth.route(rule="/forgot-password")
+def forgot_password():
+    return render_template("forgot-password.html")
+
+@auth.route(rule="/reset-new-password")
+def reset_new_password():
+    return render_template("reset-new-password.html")
+
 @auth.route(rule="/logout")
 def logout():
-
     User().logout_user()
     print("logout sucessfull")
     return redirect(url_for("auth.login"))
+
 
 @auth.route(rule="/sign-up",methods=["GET","POST"])
 def sign_in():
@@ -119,35 +127,32 @@ def delete_users():
 def inprogress_page():
     return render_template("in-progress.html")
 
-
-# Fix routing below
-
 @auth.route(rule="/notifications")
 def notifications():
     return render_template("notifications.html")
-
-
+ 
+ 
 @auth.route(rule="/other-notifications")
 def notificationsO():
     return render_template("notifications-2.html")
-
-
+ 
+ 
 @auth.route(rule="/accounts-payable")
 def accountsPayable():
     return render_template("accounts-payable.html")
-
+ 
 @auth.route(rule="/accounts-payable/view-bill")
 def accountsPayableViewBill():
     return render_template("ap-view-bill.html")
-
+ 
 @auth.route(rule="/accounts-recievable")
 def accountsRecievable():
     return render_template("accounts-recievable.html")
-
+ 
 @auth.route(rule="/accounts-recievable/view-bill")
 def accountsRecievableViewBill():
     return render_template("ar-view-bill.html")
-
+ 
 @auth.route(rule="/email/password-reset")
 def emailPwReset():
     return render_template("email-pw-reset.html")

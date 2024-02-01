@@ -95,3 +95,32 @@ def dashboard():
     else:
         return redirect(url_for("auth.login"))
 
+
+
+@views.route(rule="/new-dashboard")
+def new_dashboard():
+    return render_template("new-dashboard.html")
+
+@views.route(rule="/user-settings")
+def user_settings():
+    return render_template("user-settings.html")
+
+@views.route(rule="/user-profile-configure")
+def user_profile_configure():
+    return render_template("user-profile-configure.html")
+
+@views.route(rule="/admin-settings")
+def admin_settings():
+    return render_template("admin-settings.html")
+
+@views.route(rule="/admin-settings/add-company")
+def add_company():
+    return render_template("add-comapny.html")
+
+@views.route(rule="/admin-settings/edit-comapny")
+def edit_company():
+    return render_template("edit-company.html")
+
+@views.route(rule="/admin-settings/edit-user")
+def edit_user():
+    return render_template("edit-user.html")
