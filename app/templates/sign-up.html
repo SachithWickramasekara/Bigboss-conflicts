@@ -1,0 +1,85 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Sign UP {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-6 offset-lg-1">
+        <div class="yoo-vertical-middle">
+          <div class="yoo-vertical-middle-in">
+            <div class="yoo-signup-img yoo-style1">
+              <img src="/static/assets/img/signup-img.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="yoo-vertical-middle">
+          <div class="yoo-vertical-middle-in">
+            <form action="{{url_for('auth.sign_in')}}" method="post" class="yoo-form yoo-style1">
+              <h2 class="yoo-form-title">
+                Bigboss - Sign Up
+              </h2>
+              
+              <div class="yoo-height-b15 yoo-height-lg-b15"></div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="yoo-form-field">
+                    <input type="text" placeholder="User Name" name="username">
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="yoo-form-field">
+                    <input type="text" placeholder="Email" name="email">
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="yoo-form-field">
+                    <input type="text" placeholder="Password" name="password1">
+                  </div>
+                  
+                </div>
+                <div class="col-lg-12">
+                  <div class="yoo-form-field">
+                    <input type="text" placeholder="Confirm Password" name="password2">
+                  </div>
+              </div>
+              <div class="col-lg-12">
+                <select class="form-control" id="exampleFormControlSelect1" name="role">
+                  <option value="">--Role--</option>
+                  <option value="Admin">Admin</option>
+                  <option value="User">User</option>
+                  <option value="Sub-User">Sub-User</option>
+              </select>
+                </div>
+                <div class="col-lg-12 mt-4">
+                  <div class="yoo-form-field">
+                    <div class="yoo-checkbox-wrap yoo-style1">
+                      
+                      </div>
+                  </div>
+                  <input type="submit" value="Sign-up" class="btn btn-info">
+                  <!-- <a href="#" class="yoo-form-btn yoo-style1 yoo-color1"><span>Sign Up</span></a> -->
+
+                  <br />
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

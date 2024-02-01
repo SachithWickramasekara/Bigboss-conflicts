@@ -1,0 +1,165 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="yoo-content yoo-style1">
+    <div class="yoo-padd-lr-30 yoo-uikits-heading">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="position-fixed" style="z-index: 9999; top: 6%; right: 5%;">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message}}
+                <button type="button" class="btn-close ml-5" data-bs-dismiss="alert" aria-label="Close">X</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <h2 class="yoo-uikits-title">My Queue</h2>
+        <ul class="yoo-breadcamb yoo-style1 yoo-mp0">
+          <li><a href="{{url_for('views.dashboard')}}">Home</a></li>
+          <li>My Queue</li>
+        </ul>
+      </div>
+    <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- .col -->
+            <div class="col-lg-12">
+                <div class="yoo-card yoo-style1">
+                    <div class="yoo-card-heading">
+                        <div class="yoo-card-heading-left">
+                            <h2 class="yoo-card-title">All Bills</h2>
+                        </div>
+                        <div class="yoo-card-heading-right">
+
+                        </div>
+                    </div>
+                    <div class="yoo-card-body">
+                        <div class="table-responsive">
+                            <div class="yoo-table yoo-style1 yoo-type1">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Uploaded By</th>
+                                            <th>Company Name</th>
+                                            <th>Uploaded Time</th>
+                                            <th>Status</th>
+                                            <th>Note</th>
+                                            <th>File Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in data %}
+                                        {% for j in data[i] %}
+
+                                        <tr>
+                                            <td>
+                                                <div class="yoo-table-icon-box">
+                                                    <img src="/static/assets/img/icon/icon4.png" alt="icon"
+                                                        class="yoo-table-icon" />
+                                                    <div class="yoo-table-icon-box-info">
+                                                        <h3 class="yoo-table-icon-title">{{ j.user }}</h3>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ j.upload_company }}</td>
+                                            <td>{{ j.upload_time }}</td>
+                                            <td>
+                                                
+                                                <div class="yoo-tag-wrap yoo-style1">
+                                                    <a href="#" class="yoo-tag {% if j.status == 'Created' %}yoo-icon-color2{% else %}yoo-icon-color3{% endif %}">{{ j.status }}</a>
+                                                </div>
+                                                
+                                            </td>
+                                            <td>{{ j.comment }}</td>
+                                            <td>{{j.file_name}}</td>
+                                            <td>
+                                                {% if j.status!="Created" %}
+                                                <div class="yoo-table-more-option text-center">
+                                                    <button onclick="redirectToDocPage('{{ j.document_name }}')" class="btn btn-outline-info btn-sm mr-2"><i class="material-icons fs-2 mr-0">remove_red_eye</i></button>
+                                                </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="yoo-table-footer">
+                            
+                            <div class="yoo-table-footer-right">
+                                <ul class="yoo-mp0 yoo-table-footer-list">
+                                    <li>
+                                        <span class="yoo-efl-title">Show Rows:</span>
+                                        <div class="yoo-custom-select-wrap yoo-style1">
+                                            <select name="#" class="yoo-custom-select">
+                                                <option value="classic-fit1">10</option>
+                                                <option value="classic-fit2">15</option>
+                                                <option value="classic-fit3">20</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li><span class="yoo-efl-title">Go to</span><input type="text" value="1"></li>
+                                    <li>1 - 10 of 10</li>
+                                </ul>
+                            </div>
+                            <nav>
+                                <ul class="pagination mb-0">
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="#">Previous</a>
+                                  </li>
+                                  <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
+                                  <li class="page-item" aria-current="page">
+                                    <a class="page-link" href="#">2</a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                  </li>
+                                </ul>
+                              </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- .container-fluid -->
+
+    <div class="yoo-height-b60 yoo-height-lg-b60"></div>
+
+    {% include 'includes/footer.html' %}
+
+</div>
+<script>
+    function redirectToDocPage(docName) {
+        // Redirect to a page with the document name
+        window.location.href = '{{url_for("bills.edit_bill",doc_name=docName)}}' + encodeURIComponent(docName);
+    }
+</script>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    setTimeout(function () {
+        document.querySelectorAll('.alert').forEach(function (alert) {
+            new bootstrap.Alert(alert).close();
+        });
+    }, 5000);
+</script>
+<script src="/static/assets/js/jquery.nestable.js"></script>
+
+{% endblock javascripts %}

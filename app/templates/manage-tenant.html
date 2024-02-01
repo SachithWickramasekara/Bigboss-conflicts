@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="yoo-content yoo-style1">
+  <div class="yoo-padd-lr-30 yoo-uikits-heading">
+    <h2 class="yoo-uikits-title">Manage Companies</h2>
+    <ul class="yoo-breadcamb yoo-style1 yoo-mp0">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Admin</a></li>
+      <li>Manage Companies</li>
+    </ul>
+</div>
+<div class="yoo-height-b30 yoo-height-lg-b30"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="yoo-card yoo-style1">
+          <div class="yoo-card-heading">
+            <div class="yoo-card-heading-left">
+              <h2 class="yoo-card-title">Select Company</h2>
+            </div>
+          </div>
+          <div class="yoo-card-body">
+            <div class="yoo-padd-lr-30 yoo-alert-wrap">
+              <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+              <form action="{{url_for('manage-user.manage_user')}}" method="post">
+                <fieldset class="form-group">
+                  <div class="row">
+                    <div class="col-sm-10">
+                      <div class="custom-control custom-radio yoo-height-b5 yoo-height-lg-b5 d-flex">
+                        {% for company in companies %}
+                        <div style="width:50%">
+                          <input type="radio" id="{{company.tenat_name}}" name="company"
+                            value="{{ company.tenat_name }}" class="custom-control-input">
+                          <label class="custom-control-label" for="{{company.tenat_name}}">{{ company.tenat_name
+                            }}</label>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+                <button class="btn btn-info mb-3" type="submit" value="Submit">Submit</button>
+              </form>
+              <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

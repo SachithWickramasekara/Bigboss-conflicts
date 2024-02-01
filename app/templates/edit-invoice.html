@@ -1,0 +1,589 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Form Elements {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="yoo-content yoo-style1">
+    <div class="yoo-padd-lr-30 yoo-uikits-heading">
+        <h2 class="yoo-uikits-title">Create Bill</h2>
+    </div>
+    <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+    <div class="container-fluid">
+        <form id="myform" method="post">
+            <div class="row mb-5">
+                <div class="col-lg-5">
+                    <div class="yoo-card yoo-style1">
+                        <div class="yoo-card-heading">
+                            <div class="bills-action-bar">
+                                <a class="btn btn-sm" onclick="plusSlides(-1)">&#10094;</a>
+                                <div id="num" class="numbertext">** / **</div>
+                                <a class="btn btn-sm" onclick="plusSlides(1)">&#10095;</a>
+                                <div class="side-btns">
+                                    <button class="upload-btn" title="Upload Bill" onclick="uploadFile()">
+                                        <i class="material-icons">file_upload</i>
+                                        <button class="rotate-btn" title="Rotate Clockwise" onclick="rotateClockwise()">
+                                            <i class="material-icons">crop_rotate</i></button>
+                                </div>
+
+                                <input type="file" style="display: none;" id="uploadFile">
+                            </div>
+                        </div>
+                        <div class="yoo-card-body">
+                            <div class="yoo-padd-lr-30 yoo-alert-wrap">
+                                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+                                <div id="main-container">
+                                    <div id="image-container" class="image-container">
+
+                                        {% for i in img_list %}
+                                        <div id="image-container-{{loop.index}}" class="invoices image-container">
+                                            <img id="zoomable-image-{{loop.index}}" class="zoomable-image"
+                                                src="data:image/png;base64,{{i}}" alt="">
+                                        </div>
+                                        {% endfor %}
+                                        <div class="image-overlay mb-2">
+                                            <button class="btn btn-info rounded" title="Zoom Out" onclick="zoomOut()">
+                                                <div class="yoo-icons-wrap-in">
+                                                    <i class="material-icons" style="margin-right:0">remove</i>
+                                                </div>
+                                            </button>
+                                            <button class="btn btn-info rounded" title="Zoom In" onclick="zoomIn()">
+                                                <div class="yoo-icons-wrap-in">
+                                                    <i class="material-icons" style="margin-right:0">add</i>
+                                                </div>
+                                            </button>
+                                            <button class="btn btn-dark" onclick="resetImage()">Reset Image</button>
+                                            <button type="button" title="Download Invoice(s)" id="btn img-download"
+                                                class="btn btn-primary" data-toggle="modal" onclick="convertImage()">
+                                                <div class="yoo-icons-wrap-in">
+                                                    <i class="material-icons" style="margin-right:0">file_download</i>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="yoo-height-b15 yoo-height-lg-b15"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="yoo-card yoo-style1 yoo-height-100 pb-5">
+                        <div class="yoo-card-body">
+                            <div class="yoo-fade-tabs yoo-tabs yoo-style5">
+                                
+                                <div id="tab31" class="yoo-tab yoo-active">
+                                    <div class="yoo-height-b15 yoo-height-lg-b15"></div>
+
+                                    <div class="yoo-padd-lr-30">
+                                        <h5>Form</h5>
+                                        <div class="yoo-padd-lr-30 yoo-alert-wrap">
+
+
+                                            {% if line_item %}
+                                            <div class="col-lg-12">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row text-left">
+                                                        <label for="docname"
+                                                            class="col-sm-4 col-form-label">Company</label>
+                                                        <div class="col-sm-8">
+                                                            {% if line_data['company'] %}
+                                                            <input type="text" class="form-control" id="inputEmail3"
+                                                                value="{{line_data['company']}}" readonly
+                                                                name="company">
+                                                            {% else %}
+                                                            <input type="text" class="form-control" id="inputEmail3"
+                                                                value="{{line_data['upload_company']}}" readonly
+                                                                name="company">
+                                                            {% endif %}
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row text-left">
+                                                        <label for="docname" class="col-sm-4 col-form-label">Document
+                                                            Name</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="inputEmail3"
+                                                                value="{{line_data['document_name']}}" readonly
+                                                                name="doc_name">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row text-left">
+                                                        <label for="acc_type" class="col-sm-4 col-form-label">Account
+                                                            Type</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="inputEmail3"
+                                                                value="{{line_data['account_type']}}" readonly
+                                                                name="account_type">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row">
+                                                        <label for="inputPassword3"
+                                                            class="col-sm-4 col-form-label">Company Name</label>
+                                                        <div class="col-sm-8">
+
+                                                            <select id="inputState" class="form-control"
+                                                                name="supplier">
+                                                                <option value="{{line_data['supplier']}}">
+                                                                    {{line_data['supplier'].split(":")[0].replace("{'","").replace("'","")}}
+                                                                </option>
+
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Bill
+                                                            #</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="inputEmail3"
+                                                                placeholder="Bill #" name="bill_num"
+                                                                value="{{line_item['invoice_no']}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row">
+                                                        <label for="inputPassword3"
+                                                            class="col-sm-4 col-form-label">Currency</label>
+                                                        <div class="col-sm-8">
+                                                            <select id="inputState" class="form-control"
+                                                                name="currency">
+
+                                                                <option value="{{currency[0]['Code']}}">
+                                                                    {{currency[0]['Code']}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row">
+                                                        <label for="inputPassword3" class="col-sm-4 col-form-label">Account
+                                                            Type</label>
+                                                        <div class="col-sm-8">
+
+                                                            <select id="inputState" class="form-control"
+                                                                name="tax_type_over_all">
+                                                                {% for i in tax_type_list %}
+                                                                <option value="{{ i['code'] }}" id="">{{
+                                                                    i['code']+'-'+i['content']+ '-'+i['taxtype'] }}
+                                                                </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Bill
+                                                            Date</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="inputEmail3"
+                                                                placeholder="Bill Date" name="bill_date"
+                                                                value="{{line_item['invoice_date']}}" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Due
+                                                            Date</label>
+                                                        <div class="col-sm-8">
+                                                            <input type="text" class="form-control" id="inputEmail3"
+                                                                placeholder="Due Date" name="due_date"
+                                                                value="{{line_item['due_date']}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center">
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 yoo-card.yoo-style1">
+                    <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+                    <div class="yoo-alert-wrap text-right">
+                        
+                            <button type="button" onclick="addRowToTable()" class="btn btn-outline-info btn-sm"><i
+                                class="material-icons fs-2 mr-0">add</i></button>
+                    </div>
+                    <div class="table-responsive table-bordered mt-5">
+                        <div class="yoo-table yoo-style1 yoo-type1">
+                            <table class="table" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Account</th>
+                                        <th>Qty</th>
+                                        <th>U.Price</th>
+                                        <th>Account type</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <!-- {{line_item}} -->
+                                    {% for i in line_item.line_items %}
+
+
+                                    <tr>
+                                        <td><input type="text" value="{{line_item.line_items[i]['Description']}}"
+                                                name="description" required placeholder="Description"></td>
+                                        <td><input type="text" value="" name="account" id="account_id_0" required
+                                                placeholder="Account">
+                                        </td>
+                                        <td><input type="text" value="{{line_item.line_items[i]['Quantity']}}"
+                                                name="quantity" required placeholder="0">
+                                        </td>
+                                        <td><input type="number" value="{{line_item.line_items[i]['UnitAmount']}}"
+                                                name="unit_price" required placeholder="0">
+                                        </td>
+                                        <td>
+                                            <select name="tax_type" class="form-control" id="">
+                                                {% for i in tax_type_list %}
+                                                <option value="{{ i['code'] }}" id="">{{
+                                                    i['code']+'-'+i['content']+
+                                                    '-'+i['taxtype'] }}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="number" name="total_amount"
+                                                value="{{line_item.line_items[i]['TotalAmount']}}" required>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <button type="button" id="removeRow"
+                                                    class="btn btn-outline-danger btn-sm mr-3"><i
+                                                        class="material-icons fs-2 mr-0">close</i></button>
+                                                <!-- <button type="button" id="removeRow"
+                                                                                                        class="btn btn-danger btn-sm py-0">x</button> -->
+
+                                                
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                  
+
+
+                                </tbody>
+                            </table>
+                            {% endif %}
+                            <br>
+                            {% if session['role']=="Admin" %}
+                            <div style="padding-left: 40%;">
+                            <button type="button" class="btn btn-success"
+                                                        onclick="redirectform(1)"
+                                                        style="width:30%;margin:0 10px">Approve</button>
+                                                    </div>
+                            {% elif session['role']=="User" %}
+                            <div style="padding-left: 40%;">
+                                <button type="button" class="btn btn-success"
+                                                            onclick="redirectform(3)"
+                                                            style="width:30%;margin:0 10px">Pending</button>
+                                                        </div>
+                            
+                            {% endif %}
+                            <br>
+
+        </form>
+        {% endblock content %}
+
+        <!-- Specific Page JS goes HERE  -->
+        {% block javascripts %}
+        <script>
+            function redirectform(formType) {
+                console.log("{{url_for('x_auth.post_invoice')}}", 'url');
+                const form = document.getElementById("myform");
+                console.log(form, 'form');
+                if (formType == 1) {
+                    form.action = "{{url_for('x_auth.post_invoice')}}";
+                    form.submit();
+                }
+                if (formType == 2) {
+                    form.action = "{{url_for('bills.add_record')}}";
+                    form.submit();
+                }
+                if (formType == 3) {
+                    form.action = "{{url_for('bills.make_pending')}}";
+                    form.submit();
+                }
+            }
+        </script>
+
+        <script src="/static/assets/js/jquery.nestable.js"></script>
+
+        <script type="text/javascript">
+
+            let slideIndex = 1;
+            let zoomLevel = 1;
+            let posX = 0;
+            let posY = 0;
+            let lastPosX = 0;
+            let lastPosY = 0;
+            let rotationAngle = 0;
+
+            let image = document.getElementById("zoomable-c");
+            let imageContainer = document.getElementById("image-ab");
+
+            let wheelListener = (event) => {
+                event.preventDefault();
+                const delta = event.deltaY * -0.001;
+                zoomLevel += delta;
+                if (zoomLevel == 0) { zoomLevel = 1 }
+                updateImage();
+            };
+
+            let mouseListener = (event) => {
+                event.preventDefault();
+                lastPosX = event.clientX;
+                lastPosY = event.clientY;
+                imageContainer.style.cursor = "grabbing";
+                document.addEventListener("mousemove", handleMouseMove);
+                document.addEventListener("mouseup", handleMouseUp);
+            };
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            };
+
+            function showSlides(n) {
+                var i;
+                var slides = document.getElementsByClassName("invoices");
+                if (n > slides.length) { slideIndex = 1 }
+                if (n < 1) { slideIndex = slides.length }
+                console.log("slideIndex", slideIndex)
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slides[slideIndex - 1].style.display = "flex";
+                document.getElementById("num").innerText = slideIndex + " / " + slides.length;
+
+                zoomHandler(slideIndex);
+            };
+
+            function updateImage() {
+                console.log(image);
+                image.style.transform = `scale(${zoomLevel}) translate(${posX}px, ${posY}px) rotate(${rotationAngle}deg)`;
+                console.log(image);
+            }
+
+            function zoomHandler(n) {
+                if (image !== null) {
+                    image.removeEventListener("wheel", wheelListener);
+                    image.removeEventListener("mousedown", mouseListener);
+                }
+                image = document.getElementById(`zoomable-image-${n}`);
+                imageContainer = document.getElementById(`image-container-${n}`);
+
+                image.addEventListener("wheel", wheelListener);
+                image.addEventListener("mousedown", mouseListener);
+
+                resetImage();
+            }
+
+            function handleMouseMove(event) {
+                posX += event.clientX - lastPosX;
+                posY += event.clientY - lastPosY;
+                lastPosX = event.clientX;
+                lastPosY = event.clientY;
+                updateImage();
+            }
+
+            function handleMouseUp() {
+                document.removeEventListener("mousemove", handleMouseMove);
+                document.removeEventListener("mouseup", handleMouseUp);
+                imageContainer.style.cursor = "grab";
+            }
+
+            function uploadFile() {
+                $("#uploadFile").click()
+
+                var formData = {
+                    upload_file: $("#uploadFile").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/payables/edit/2",
+                    //contentType: 'application/json;charset=UTF-8',
+                    data: formData,
+                    cache: false,
+                    success: function (msg) {
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                    }
+                }).done(function (data) {
+                    console.log(data);
+                });;
+            }
+
+
+            function convertImage() {
+                let arr = document.querySelectorAll('.zoomable-image')
+                let imgUrl = []
+                arr.forEach(a => {
+                    console.log(a);
+                    imgUrl.push(a.src)
+                })
+                var base64 = getBase64Image(imgUrl[0]);
+                // console.log(base64);
+            }
+
+            function getBase64Image(strDataURI) {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                getMeta(strDataURI, (err, img) => {
+                    // console.log(img.naturalWidth, img.naturalHeight);
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                });
+                var img = new Image;
+                img.src = strDataURI;
+                img.onload = function () {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height)
+                    const angleInRadians = (rotationAngle * Math.PI) / 180
+                    const imgWidth = img.width * Math.abs(Math.cos(angleInRadians)) + img.height * Math.abs(Math.sin(angleInRadians));
+                    const imgHeight = img.width * Math.abs(Math.sin(angleInRadians)) + img.height * Math.abs(Math.cos(angleInRadians));
+                    canvas.width = imgWidth;
+                    canvas.height = imgHeight;
+                    ctx.translate(canvas.width / 2, canvas.height / 2)
+                    ctx.rotate(angleInRadians)
+                    ctx.drawImage(img, -img.width / 2, -img.height / 2)
+
+                    var link = document.createElement('a');
+                    link.download = 'invoice.jpg';
+                    link.href = canvas.toDataURL("image/octet-stream")
+                    link.click();
+                };
+            }
+
+            function getMeta(url, cb) {
+                const img = new Image();
+                img.onload = () => cb(null, img);
+                img.onerror = (err) => cb(err);
+                img.src = url;
+            };
+
+            function resetImage() {
+                zoomLevel = 1;
+                posX = 0;
+                posY = 0;
+                updateImage();
+            }
+
+            function zoomOut() {
+                zoomLevel -= 0.1;
+                updateImage();
+            }
+
+            function zoomIn() {
+                zoomLevel += 0.1;
+                updateImage();
+            }
+
+            function rotateClockwise() {
+                rotationAngle += 15;
+                updateImage();
+            }
+
+            function rotateCounterclockwise() {
+                rotationAngle -= 15;
+                updateImage();
+            }
+
+            function downloadImage(url) {
+                fetch(url, {
+                    mode: 'no-cors',
+                })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        let blobUrl = window.URL.createObjectURL(blob);
+                        let a = document.createElement('a');
+                        a.download = url.replace(/^.*[\\\/]/, '');
+                        a.href = blobUrl;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                    })
+            }
+
+            function addRowToTable() {
+                let rowTableCount = document.querySelector('#myTable tbody').rows.length;
+                console.log(rowTableCount);
+                let newTr = `
+                <tr>
+                    <td><input type="text" value="" name="description" required
+                            placeholder="Description"></td>
+                    <td><input type="text" value="" id="account_id_${rowTableCount}" name="account" required
+                            placeholder="Account"></td>
+                    <td><input type="number" value="" name="quantity" required
+                            placeholder="0"></td>
+                    <td><input type="number" value="" name="unit_price" required
+                            placeholder="0"></td>
+                    <td>
+                        <select name="tax_type" id="" class="form-control" required>
+                            {% for i in tax_type_list %}
+                            <option value="{{ i['code'] }}" id="">{{
+                                i['code']+'-'+i['content']+ '-'+i['taxtype'] }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" name="total_amount" value="0.00"
+                            required></td>
+                    <td>
+                        <button type="button" id="removeRow"
+                            class="btn btn-danger btn-sm py-0">x</button>
+                    </td>
+                </tr >
+                `;
+                let tableId = document.getElementById('myTable');
+                let tBody = tableId.getElementsByTagName('tbody')[0];
+                $(tBody).append(newTr);
+                // $('.single-select').select2();
+
+            }
+
+            // remove row from the table
+            $('#myTable').on('click', '#removeRow', function () {
+                $(this).parents('tr').detach();
+            });
+
+        </script>
+
+        <script>
+            $(window).on('load', function () {
+                showSlides(1)
+            });
+        </script>
+        {% endblock javascripts %}
