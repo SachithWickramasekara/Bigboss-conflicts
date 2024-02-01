@@ -1,0 +1,68 @@
+{% extends "layouts/base.html" %}
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="yoo-content yoo-style1">
+    <div class="yoo-padd-lr-30 yoo-uikits-heading">
+        <h2 class="yoo-uikits-title">Create Supplier</h2>
+        <ul class="yoo-breadcamb yoo-style1 yoo-mp0">
+          <li><a href="{{url_for('views.dashboard')}}">Home</a></li>
+          <li>Create Supplier</li>
+        </ul>
+      </div>
+      <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+    <div class="container-fluid">
+        <div class="row mb-5">
+            <div class="col-lg-8">
+                <div class="yoo-card yoo-style1">
+                    <div class="yoo-card yoo-style1">
+                        <div class="yoo-card-heading">
+                            <div class="yoo-card-heading-left">
+                                <h2 class="yoo-card-title">Create Supplier</h2>
+                            </div>
+                        </div>
+                        <div class="yoo-card-body">
+                            <div class="yoo-padd-lr-30 yoo-alert-wrap pb-4">
+                                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+                                <form action="{{url_for('x_auth.create_supplier')}}" method="post">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Contact Name</label>
+                                        <input type="text" class="mb-3" id="exampleFormControlFile1"
+                                            name="contact_name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">First Name</label>
+                                        <input type="text" class="mb-3" id="exampleFormControlFile1"
+                                            name="first_name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Last Name</label>
+                                        <input type="text" class="mb-3" id="exampleFormControlFile1"
+                                            name="last_name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Email</label>
+                                        <input type="email" class="mb-3" id="exampleFormControlFile1"
+                                            name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Tax Number</label>
+                                        <input type="text" class="mb-3" id="exampleFormControlFile1"
+                                            name="tax_number" required>
+                                    </div>
+                                    
+                                    <button class="btn btn-info" type="submit">Create</button>
+                                </form>
+                                <div class="yoo-height-b15 yoo-height-lg-b15"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

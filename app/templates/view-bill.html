@@ -1,0 +1,132 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="yoo-content yoo-style1">
+    <div class="yoo-padd-lr-30 yoo-uikits-heading">
+        <h2 class="yoo-uikits-title">View Bills</h2>
+        <ul class="yoo-breadcamb yoo-style1 yoo-mp0">
+          <li><a href="{{url_for('views.dashboard')}}">Home</a></li>
+          <li>View Bills</li>
+        </ul>
+      </div>
+      <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- .col -->
+            <div class="col-lg-12">
+                <div class="yoo-card yoo-style1">
+                    <div class="yoo-card-heading">
+                        <div class="yoo-card-heading-left">
+                            <h2 class="yoo-card-title">All Bills</h2>
+                        </div>
+                        <div class="yoo-card-heading-right">
+                            <a href="/create-bill.html" class="yoo-btn yoo-style1 yoo-small">Create Bill</a>
+                        </div>
+                    </div>
+                    <div class="yoo-card-body">
+                        <div class="table-responsive">
+                            <div class="yoo-table yoo-style1 yoo-type1">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Uploaded By</th>
+                                            <th>Entity Name</th>
+                                            <th>Created At</th>
+                                            <th>Doc Status</th>
+                                            <th>Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for i in data %}
+                                        {% for j in data[i] %}
+                                        <tr>
+                                            <td>{{ j.id_num }}</td>
+                                            <td>
+                                                <div class="yoo-table-icon-box">
+                                                    <img src="/static/assets/img/icon/icon4.png" alt="icon"
+                                                        class="yoo-table-icon" />
+                                                    <div class="yoo-table-icon-box-info">
+                                                        <h3 class="yoo-table-icon-title">{{ j.user }}</h3>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ j.upload_company }}</td>
+                                            <td>{{ j.upload_time }}</td>
+                                            <td>
+                                                <div class="yoo-tag-wrap yoo-style1">
+                                                    <a href="#" class="yoo-tag {% if j.status == 'Created' %}yoo-icon-color2{% else %}yoo-icon-color3{% endif %}">{{ j.status }}</a>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                {{ j.comment }}    
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="yoo-table-footer">
+                            <div class="yoo-table-footer-left">
+                                <div class="yoo-table-footer-left-text">This report was generated on 23 Jan,2020 at
+                                    9:34:19 PM - <a href="#">Refresh Report</a></div>
+                            </div>
+                            <div class="yoo-table-footer-right">
+                                <ul class="yoo-mp0 yoo-table-footer-list">
+                                    <li>
+                                        <span class="yoo-efl-title">Show Rows:</span>
+                                        <div class="yoo-custom-select-wrap yoo-style1">
+                                            <select name="#" class="yoo-custom-select">
+                                                <option value="classic-fit1">10</option>
+                                                <option value="classic-fit2">15</option>
+                                                <option value="classic-fit3">20</option>
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li><span class="yoo-efl-title">Go to</span><input type="text" value="1"></li>
+                                    <li>1 - 10 of 10</li>
+                                </ul>
+                            </div>
+                            <nav>
+                                <ul class="pagination mb-0">
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="#">Previous</a>
+                                  </li>
+                                  <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
+                                  <li class="page-item" aria-current="page">
+                                    <a class="page-link" href="#">2</a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                  </li>
+                                </ul>
+                              </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- .container-fluid -->
+
+    <div class="yoo-height-b60 yoo-height-lg-b60"></div>
+
+    {% include 'includes/footer.html' %}
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

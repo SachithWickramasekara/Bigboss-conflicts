@@ -1,0 +1,390 @@
+{% extends "layouts/base.html" %}{% block title %} User Settings {% endblock%}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <div class="yoo-content yoo-style1">
+      <div class="flex items-center justify-between px-8">
+        <div class="flex flex-col">
+          <div class="pt-10 flex flex-row gap-2 items-center">
+            <div class="heading-primary">Dashboard</div>
+          </div>
+          <div class="text-[18px] text-[#212121] font-[400] py-8">
+            Track your document lifecycle over time.
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <button
+            class="date-picker-layout date-picker-style date-picker-typo outline-none"
+            id="datePickerButton"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M6.66675 0.833374C7.12699 0.833374 7.50008 1.20647 7.50008 1.66671V2.50004H12.5001V1.66671C12.5001 1.20647 12.8732 0.833374 13.3334 0.833374C13.7937 0.833374 14.1667 1.20647 14.1667 1.66671V2.50139C14.563 2.50412 14.9093 2.5123 15.2099 2.53687C15.6784 2.57514 16.1089 2.65728 16.5134 2.86335C17.1406 3.18293 17.6505 3.69287 17.9701 4.32007C18.1762 4.72452 18.2583 5.1551 18.2966 5.62352C18.3334 6.07451 18.3334 6.62814 18.3334 7.29894V14.3678C18.3334 15.0386 18.3334 15.5922 18.2966 16.0432C18.2583 16.5116 18.1762 16.9422 17.9701 17.3467C17.6505 17.9739 17.1406 18.4838 16.5134 18.8034C16.1089 19.0095 15.6784 19.0916 15.2099 19.1299C14.7589 19.1667 14.2053 19.1667 13.5345 19.1667H6.46564C5.79485 19.1667 5.24122 19.1667 4.79023 19.1299C4.32181 19.0916 3.89123 19.0095 3.48678 18.8034C2.85957 18.4838 2.34964 17.9739 2.03006 17.3467C1.82398 16.9422 1.74185 16.5116 1.70358 16.0432C1.66673 15.5922 1.66674 15.0386 1.66675 14.3678V7.29896C1.66674 6.62815 1.66673 6.07452 1.70358 5.62352C1.74185 5.1551 1.82398 4.72452 2.03006 4.32007C2.34964 3.69287 2.85957 3.18293 3.48678 2.86335C3.89123 2.65728 4.32181 2.57514 4.79023 2.53687C5.0909 2.5123 5.43719 2.50412 5.83342 2.50139V1.66671C5.83342 1.20647 6.20651 0.833374 6.66675 0.833374ZM5.83342 4.16818C5.46214 4.17078 5.17061 4.17801 4.92595 4.198C4.5606 4.22785 4.37376 4.28196 4.24343 4.34836C3.92983 4.50815 3.67486 4.76312 3.51507 5.07672C3.44866 5.20706 3.39456 5.39389 3.36471 5.75924C3.33406 6.13431 3.33342 6.61956 3.33342 7.33337V7.50004H16.6667V7.33337C16.6667 6.61956 16.6661 6.13431 16.6355 5.75924C16.6056 5.39389 16.5515 5.20706 16.4851 5.07672C16.3253 4.76312 16.0703 4.50815 15.7567 4.34836C15.6264 4.28196 15.4396 4.22785 15.0742 4.198C14.8296 4.17801 14.538 4.17078 14.1667 4.16818V5.00004C14.1667 5.46028 13.7937 5.83337 13.3334 5.83337C12.8732 5.83337 12.5001 5.46028 12.5001 5.00004V4.16671H7.50008V5.00004C7.50008 5.46028 7.12699 5.83337 6.66675 5.83337C6.20651 5.83337 5.83342 5.46028 5.83342 5.00004V4.16818ZM16.6667 9.16671H3.33342V14.3334C3.33342 15.0472 3.33406 15.5324 3.36471 15.9075C3.39456 16.2729 3.44866 16.4597 3.51507 16.59C3.67486 16.9036 3.92983 17.1586 4.24343 17.3184C4.37376 17.3848 4.5606 17.4389 4.92595 17.4687C5.30102 17.4994 5.78627 17.5 6.50008 17.5H13.5001C14.2139 17.5 14.6991 17.4994 15.0742 17.4687C15.4396 17.4389 15.6264 17.3848 15.7567 17.3184C16.0703 17.1586 16.3253 16.9036 16.4851 16.59C16.5515 16.4597 16.6056 16.2729 16.6355 15.9075C16.6661 15.5324 16.6667 15.0472 16.6667 14.3334V9.16671Z"
+                fill="#2C2C2C"
+              />
+            </svg>
+            Select Dates
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-row items-center gap-8 px-8">
+        <div class="card">
+          <div class="card-typo-heading">Documents</div>
+          <div class="card-typo-numeric">26.8k</div>
+          <div class="flex items-center gap-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M9.41066 3.57709C9.7361 3.25165 10.2637 3.25165 10.5892 3.57709L16.4225 9.41042C16.7479 9.73586 16.7479 10.2635 16.4225 10.5889C16.0971 10.9144 15.5694 10.9144 15.244 10.5889L10.8333 6.17819V15.833C10.8333 16.2932 10.4602 16.6663 9.99992 16.6663C9.53968 16.6663 9.16658 16.2932 9.16658 15.833V6.17819L4.75584 10.5889C4.4304 10.9144 3.90277 10.9144 3.57733 10.5889C3.25189 10.2635 3.25189 9.73586 3.57733 9.41042L9.41066 3.57709Z"
+                fill="#6FAE52"
+              />
+            </svg>
+            <div class="card-typo-success">12%</div>
+            <div class="card-typo">vs last month</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-typo-heading">Accounts Payable</div>
+          <div class="card-typo-numeric">10.1k</div>
+          <div class="flex items-center gap-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M10.6667 3.33301C11.1269 3.33301 11.5 3.7061 11.5 4.16634V13.8212L15.9107 9.41042C16.2362 9.08498 16.7638 9.08498 17.0893 9.41042C17.4147 9.73586 17.4147 10.2635 17.0893 10.5889L11.2559 16.4223C10.9305 16.7477 10.4028 16.7477 10.0774 16.4223L4.24408 10.5889C3.91864 10.2635 3.91864 9.73586 4.24408 9.41042C4.56951 9.08498 5.09715 9.08498 5.42259 9.41042L9.83333 13.8212V4.16634C9.83333 3.7061 10.2064 3.33301 10.6667 3.33301Z"
+                fill="#E43729"
+              />
+            </svg>
+            <div class="card-typo-failed">5%</div>
+            <div class="card-typo">vs last month</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-typo-heading">Accounts Receivable</div>
+          <div class="card-typo-numeric">16.7k</div>
+          <div class="flex items-center gap-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M9.41066 3.57709C9.7361 3.25165 10.2637 3.25165 10.5892 3.57709L16.4225 9.41042C16.7479 9.73586 16.7479 10.2635 16.4225 10.5889C16.0971 10.9144 15.5694 10.9144 15.244 10.5889L10.8333 6.17819V15.833C10.8333 16.2932 10.4602 16.6663 9.99992 16.6663C9.53968 16.6663 9.16658 16.2932 9.16658 15.833V6.17819L4.75584 10.5889C4.4304 10.9144 3.90277 10.9144 3.57733 10.5889C3.25189 10.2635 3.25189 9.73586 3.57733 9.41042L9.41066 3.57709Z"
+                fill="#6FAE52"
+              />
+            </svg>
+            <div class="card-typo-success">12%</div>
+            <div class="card-typo">vs last month</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row gap-8 px-8 w-full">
+        <div
+          class="view-document-table-border my-8 min-h-[400px] w-full max-w-[438px]"
+        >
+          <div class="view-document-table-heading">
+            Document status breakdown
+          </div>
+        </div>
+        <div class="view-document-table-border my-8 min-h-[400px] w-full">
+          <div class="view-document-table-heading">Document scan report</div>
+        </div>
+      </div>
+      <div class="mb-10">
+        <div class="px-8">
+          <div class="table-border">
+            <div class="flex flex-row table_Header-bg text-white">
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Comapny</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Documents</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Accounts Payable</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Accounts Receivable</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Kerner Norland
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">923</div>
+              <div class="flex-[1] mx-1 text-[#212121]">822</div>
+              <div class="flex-[1] mx-1 text-[#212121]">709</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                1705 studio
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">23</div>
+              <div class="flex-[1] mx-1 text-[#212121]">23</div>
+              <div class="flex-[1] mx-1 text-[#212121]">466</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Workshiftly
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">854</div>
+              <div class="flex-[1] mx-1 text-[#212121]">88</div>
+              <div class="flex-[1] mx-1 text-[#212121]">23</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Skoolbus
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">1923</div>
+              <div class="flex-[1] mx-1 text-[#212121]">466</div>
+              <div class="flex-[1] mx-1 text-[#212121]">709</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                LPO Solutions
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">923</div>
+              <div class="flex-[1] mx-1 text-[#212121]">822</div>
+              <div class="flex-[1] mx-1 text-[#212121]">709</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Accario
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">923</div>
+              <div class="flex-[1] mx-1 text-[#212121]">822</div>
+              <div class="flex-[1] mx-1 text-[#212121]">709</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                NorthLark
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">923</div>
+              <div class="flex-[1] mx-1 text-[#212121]">822</div>
+              <div class="flex-[1] mx-1 text-[#212121]">709</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Plus94
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">923</div>
+              <div class="flex-[1] mx-1 text-[#212121]">822</div>
+              <div class="flex-[1] mx-1 text-[#212121]">709</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                LIVN
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">923</div>
+              <div class="flex-[1] mx-1 text-[#212121]">822</div>
+              <div class="flex-[1] mx-1 text-[#212121]">709</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                HealthRecon Connect
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">923</div>
+              <div class="flex-[1] mx-1 text-[#212121]">822</div>
+              <div class="flex-[1] mx-1 text-[#212121]">709</div>
+            </div>
+
+            <div class="flex justify-between pagination_body px-6 py-3">
+              <div>
+                <button
+                  class="date-picker-layout date-picker-style date-picker-typo flex items-center gap-2 hover:bg-[#2C2C2C] hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M15.8332 9.99984H4.1665M4.1665 9.99984L9.99984 15.8332M4.1665 9.99984L9.99984 4.1665"
+                      stroke="#344054"
+                      stroke-width="1.66667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Previous
+                </button>
+              </div>
+              <div class="flex gap-2 items-end">
+                <button class="pagination_button">1</button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  2
+                </button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  3
+                </button>
+                <span class="text-[#BEBEBE]"> .....</span>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  8
+                </button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  9
+                </button>
+              </div>
+              <div>
+                <button
+                  class="date-picker-layout date-picker-style date-picker-typo flex items-center gap-2 hover:bg-[#2C2C2C] hover:text-white flex"
+                >
+                  Next
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M4.1665 9.99984H15.8332M15.8332 9.99984L9.99984 4.1665M15.8332 9.99984L9.99984 15.8332"
+                      stroke="#344054"
+                      stroke-width="1.66667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+{% endblock content %}

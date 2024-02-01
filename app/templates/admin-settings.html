@@ -1,0 +1,975 @@
+{% extends "layouts/base.html" %}{% block title %} Admin Settings {% endblock%}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+    <script>
+      function openInitialTab() {
+        // Simulate a click on the first tab (London) when the page loads
+        var firstTabButton = document.querySelector(".tablinks");
+        firstTabButton.click();
+      }
+
+      // Call the function when the document is loaded
+      document.addEventListener("DOMContentLoaded", openInitialTab);
+    </script>
+  </head>
+  <body>
+    <div class="yoo-content yoo-style1">
+      <div class="px-8 pt-10 flex flex-row gap-2 items-center">
+        <div class="heading-primary">Admin Settings</div>
+      </div>
+      <div class="heading-para px-8 pt-2">
+        View a list of all companies and users or create a new entry.
+      </div>
+      <!-- Tab links -->
+      <div class="flex justify-between items-center px-8 pt-6">
+        <div class="tab tab-border flex">
+          <button
+            class="tablinks tab-border w-[130px]"
+            onclick="openCity(event, 'London')"
+          >
+            Companies
+          </button>
+          <button
+            class="tablinks tab-border"
+            onclick="openCity(event, 'Paris')"
+          >
+            Users
+          </button>
+        </div>
+        <a href="{{url_for('views.add_company')}}">
+          <div class="cursor-pointer save-black-button">+ Add User</div>
+        </a>
+      </div>
+
+      <!-- Tab content -->
+      <div id="London" class="tabcontent">
+        <div class="px-8 py-6">
+          <div class="table-border">
+            <div class="flex flex-row table_Header-bg text-white">
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Name</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>ABN</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Email</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Phone</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <a href="{{url_for('views.edit_company')}}">
+              <div
+                class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+              >
+                <div
+                  class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]"
+                >
+                  Kerner Norland
+                </div>
+                <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                  51 824 753 556
+                </div>
+                <div class="flex-[1] mx-1 text-[#212121]">
+                  info@kernernorland.com
+                </div>
+                <div class="flex-[1] mx-1 text-[#212121]">+61 412 345 678</div>
+              </div>
+            </a>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                1705 studio
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                50 110 219 460
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                info@1705studio.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 437 890 123</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Workshiftly
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                87 654 321 098
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                contact@northlark.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 498 765 432</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Skoolbus
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                56 789 012 345
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                info@workshiftly.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 423 456 789</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Kerner Norland
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                51 824 753 556
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                info@kernernorland.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 412 345 678</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                1705 studio
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                50 110 219 460
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                info@1705studio.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 437 890 123</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Workshiftly
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                87 654 321 098
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                contact@northlark.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 498 765 432</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Skoolbus
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                56 789 012 345
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                info@workshiftly.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 423 456 789</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Kerner Norland
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                51 824 753 556
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                info@kernernorland.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 412 345 678</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                1705 studio
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                50 110 219 460
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                info@1705studio.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 437 890 123</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Workshiftly
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                87 654 321 098
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                contact@northlark.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 498 765 432</div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Skoolbus
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                56 789 012 345
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">
+                info@workshiftly.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">+61 423 456 789</div>
+            </div>
+
+            <div class="flex justify-between pagination_body px-6 py-3">
+              <div>
+                <button
+                  class="date-picker-layout date-picker-style date-picker-typo flex items-center gap-2 hover:bg-[#2C2C2C] hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M15.8332 9.99984H4.1665M4.1665 9.99984L9.99984 15.8332M4.1665 9.99984L9.99984 4.1665"
+                      stroke="#344054"
+                      stroke-width="1.66667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Previous
+                </button>
+              </div>
+              <div class="flex gap-2 items-end">
+                <button class="pagination_button">1</button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  2
+                </button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  3
+                </button>
+                <span class="text-[#BEBEBE]"> .....</span>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  8
+                </button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  9
+                </button>
+              </div>
+              <div>
+                <button
+                  class="date-picker-layout date-picker-style date-picker-typo flex items-center gap-2 hover:bg-[#2C2C2C] hover:text-white flex"
+                >
+                  Next
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M4.1665 9.99984H15.8332M15.8332 9.99984L9.99984 4.1665M15.8332 9.99984L9.99984 15.8332"
+                      stroke="#344054"
+                      stroke-width="1.66667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="Paris" class="tabcontent">
+        <div class="px-8 py-6">
+          <div class="table-border">
+            <div class="flex flex-row table_Header-bg text-white">
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Full Name</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Email</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Access Type</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="flex-[1]">
+                <div class="flex gap-1 items-center">
+                  <div>Status</div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8.00016 3.33325V12.6666M8.00016 12.6666L12.6668 7.99992M8.00016 12.6666L3.3335 7.99992"
+                      stroke="#E6E7EB"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <a href="{{url_for('views.edit_user')}}">
+              <div
+                class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+              >
+                <div
+                  class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]"
+                >
+                  Ava Mitchell
+                </div>
+                <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                  ava@example.com
+                </div>
+                <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+                <div class="flex-[1] mx-1">
+                  <div
+                    class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                  >
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="15"
+                        height="14"
+                        viewBox="0 0 15 14"
+                        fill="none"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                          fill="#53823D"
+                        />
+                      </svg>
+                    </div>
+                    <div class="success-badge-typo text-[#53823D]">Active</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Noah Carter
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                noah@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                        fill="#53823D"
+                      />
+                    </svg>
+                  </div>
+                  <div class="success-badge-typo text-[#53823D]">Active</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Sophia Kim
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                sophia@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Admin</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                        fill="#53823D"
+                      />
+                    </svg>
+                  </div>
+                  <div class="success-badge-typo text-[#53823D]">Active</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Isabella Taylor
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                isabella@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="failed-badge-layout failed-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM5.33744 4.83817C5.56525 4.61037 5.93459 4.61037 6.1624 4.83817L7.49992 6.17569L8.83744 4.83817C9.06525 4.61037 9.43459 4.61037 9.6624 4.83817C9.8902 5.06598 9.8902 5.43532 9.6624 5.66313L8.32488 7.00065L9.6624 8.33817C9.8902 8.56598 9.8902 8.93532 9.6624 9.16313C9.43459 9.39094 9.06525 9.39094 8.83744 9.16313L7.49992 7.82561L6.1624 9.16313C5.93459 9.39094 5.56525 9.39094 5.33744 9.16313C5.10963 8.93532 5.10963 8.56598 5.33744 8.33817L6.67496 7.00065L5.33744 5.66313C5.10963 5.43532 5.10963 5.06598 5.33744 4.83817Z"
+                        fill="#B62C21"
+                      />
+                    </svg>
+                  </div>
+                  <div class="failed-badge-typo">Inactive</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Ava Mitchell
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                ava@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                        fill="#53823D"
+                      />
+                    </svg>
+                  </div>
+                  <div class="success-badge-typo text-[#53823D]">Active</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Noah Carter
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                noah@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                        fill="#53823D"
+                      />
+                    </svg>
+                  </div>
+                  <div class="success-badge-typo text-[#53823D]">Active</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Sophia Kim
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                sophia@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Admin</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                        fill="#53823D"
+                      />
+                    </svg>
+                  </div>
+                  <div class="success-badge-typo text-[#53823D]">Active</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Isabella Taylor
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                isabella@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="failed-badge-layout failed-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM5.33744 4.83817C5.56525 4.61037 5.93459 4.61037 6.1624 4.83817L7.49992 6.17569L8.83744 4.83817C9.06525 4.61037 9.43459 4.61037 9.6624 4.83817C9.8902 5.06598 9.8902 5.43532 9.6624 5.66313L8.32488 7.00065L9.6624 8.33817C9.8902 8.56598 9.8902 8.93532 9.6624 9.16313C9.43459 9.39094 9.06525 9.39094 8.83744 9.16313L7.49992 7.82561L6.1624 9.16313C5.93459 9.39094 5.56525 9.39094 5.33744 9.16313C5.10963 8.93532 5.10963 8.56598 5.33744 8.33817L6.67496 7.00065L5.33744 5.66313C5.10963 5.43532 5.10963 5.06598 5.33744 4.83817Z"
+                        fill="#B62C21"
+                      />
+                    </svg>
+                  </div>
+                  <div class="failed-badge-typo">Inactive</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Ava Mitchell
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                ava@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                        fill="#53823D"
+                      />
+                    </svg>
+                  </div>
+                  <div class="success-badge-typo text-[#53823D]">Active</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Noah Carter
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                noah@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                        fill="#53823D"
+                      />
+                    </svg>
+                  </div>
+                  <div class="success-badge-typo text-[#53823D]">Active</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Sophia Kim
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                sophia@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Admin</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="success-badge-layout success-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM10.5374 4.83817C10.7652 5.06598 10.7652 5.43532 10.5374 5.66313L7.0374 9.16313C6.80959 9.39094 6.44025 9.39094 6.21244 9.16313L4.46244 7.41313C4.23463 7.18532 4.23463 6.81598 4.46244 6.58817C4.69025 6.36037 5.05959 6.36037 5.2874 6.58817L6.62492 7.92569L9.71244 4.83817C9.94025 4.61037 10.3096 4.61037 10.5374 4.83817Z"
+                        fill="#53823D"
+                      />
+                    </svg>
+                  </div>
+                  <div class="success-badge-typo text-[#53823D]">Active</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-row px-6 py-4 bg-[#FFF] border-b border-gray-300"
+            >
+              <div class="flex-[1] mx-1 text-[18px] font-[700] text-[#212121]">
+                Isabella Taylor
+              </div>
+              <div class="flex-[1] mx-1 text-[12px] text-[#212121]">
+                isabella@example.com
+              </div>
+              <div class="flex-[1] mx-1 text-[#212121]">Member</div>
+              <div class="flex-[1] mx-1">
+                <div
+                  class="failed-badge-layout failed-badge-style w-[120px] flex items-center gap-2"
+                >
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M7.49992 1.75065C4.60042 1.75065 2.24992 4.10116 2.24992 7.00065C2.24992 9.90015 4.60042 12.2507 7.49992 12.2507C10.3994 12.2507 12.7499 9.90015 12.7499 7.00065C12.7499 4.10116 10.3994 1.75065 7.49992 1.75065ZM1.08325 7.00065C1.08325 3.45682 3.95609 0.583984 7.49992 0.583984C11.0437 0.583984 13.9166 3.45682 13.9166 7.00065C13.9166 10.5445 11.0437 13.4173 7.49992 13.4173C3.95609 13.4173 1.08325 10.5445 1.08325 7.00065ZM5.33744 4.83817C5.56525 4.61037 5.93459 4.61037 6.1624 4.83817L7.49992 6.17569L8.83744 4.83817C9.06525 4.61037 9.43459 4.61037 9.6624 4.83817C9.8902 5.06598 9.8902 5.43532 9.6624 5.66313L8.32488 7.00065L9.6624 8.33817C9.8902 8.56598 9.8902 8.93532 9.6624 9.16313C9.43459 9.39094 9.06525 9.39094 8.83744 9.16313L7.49992 7.82561L6.1624 9.16313C5.93459 9.39094 5.56525 9.39094 5.33744 9.16313C5.10963 8.93532 5.10963 8.56598 5.33744 8.33817L6.67496 7.00065L5.33744 5.66313C5.10963 5.43532 5.10963 5.06598 5.33744 4.83817Z"
+                        fill="#B62C21"
+                      />
+                    </svg>
+                  </div>
+                  <div class="failed-badge-typo">Inactive</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-between pagination_body px-6 py-3">
+              <div>
+                <button
+                  class="date-picker-layout date-picker-style date-picker-typo flex items-center gap-2 hover:bg-[#2C2C2C] hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M15.8332 9.99984H4.1665M4.1665 9.99984L9.99984 15.8332M4.1665 9.99984L9.99984 4.1665"
+                      stroke="#344054"
+                      stroke-width="1.66667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Previous
+                </button>
+              </div>
+              <div class="flex gap-2 items-end">
+                <button class="pagination_button">1</button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  2
+                </button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  3
+                </button>
+                <span class="text-[#BEBEBE]"> .....</span>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  8
+                </button>
+                <button class="pagination_button_layout text-[#BEBEBE]">
+                  9
+                </button>
+              </div>
+              <div>
+                <button
+                  class="date-picker-layout date-picker-style date-picker-typo flex items-center gap-2 hover:bg-[#2C2C2C] hover:text-white flex"
+                >
+                  Next
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M4.1665 9.99984H15.8332M15.8332 9.99984L9.99984 4.1665M15.8332 9.99984L9.99984 15.8332"
+                      stroke="#344054"
+                      stroke-width="1.66667"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function openCity(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+    </script>
+  </body>
+</html>
+
+{% endblock content %}
