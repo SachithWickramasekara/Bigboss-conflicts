@@ -12842,3 +12842,104 @@ input:checked + .slider:before {
   line-height: 24px; /* 133.333% */
 }
 /*# sourceMappingURL=style.css.map */
+
+.xero-button {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 2px 12px;
+  position: relative;
+  background-color: var(--foundationblue-300);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: var(--foundationblue-300);
+  box-shadow: var(--shadow-xs);
+}
+ 
+.xero-button .share {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+ 
+.xero-button .text {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: var(--text-lg-bold-font-family);
+  font-weight: var(--text-lg-bold-font-weight);
+  color: var(--basewhite);
+  font-size: var(--text-lg-bold-font-size);
+  letter-spacing: var(--text-lg-bold-letter-spacing);
+  line-height: var(--text-lg-bold-line-height);
+  white-space: nowrap;
+  font-style: var(--text-lg-bold-font-style);
+}
+ 
+:root {
+  --foundationblue-300: rgba(80, 106, 197, 1);
+  --basewhite: rgba(255, 255, 255, 1);
+  --foundationdark-graynormal: rgba(44, 44, 44, 1);
+  --foundationdark-graylight-active: rgba(190, 190, 190, 1);
+  --foundationdark-graylight: rgba(234, 234, 234, 1);
+  --foundationdark-graynormal-hover: rgba(40, 40, 40, 1);
+  --foundationdark-graynormal-active: rgba(35, 35, 35, 1);
+  --foundation-bluenormal-hover: rgba(18, 0, 230, 1);
+  --foundation-bluenormal-active: rgba(16, 0, 204, 1);
+  --foundationblue-200: rgba(232, 230, 255, 1);
+  --text-lg-bold-font-family: "Helvetica-Bold", Helvetica;
+  --text-lg-bold-font-weight: 700;
+  --text-lg-bold-font-size: 16px;
+  --text-lg-bold-letter-spacing: 0px;
+  --text-lg-bold-line-height: 24px;
+  --text-lg-bold-font-style: normal;
+  --interactive-button-text-font-family: "Helvetica-Bold", Helvetica;
+  --interactive-button-text-font-weight: 700;
+  --interactive-button-text-font-size: 18px;
+  --interactive-button-text-letter-spacing: 0px;
+  --interactive-button-text-line-height: 24px;
+  --interactive-button-text-font-style: normal;
+  --interactive-link-lg-font-family: "Helvetica-Bold", Helvetica;
+  --interactive-link-lg-font-weight: 700;
+  --interactive-link-lg-font-size: 18px;
+  --interactive-link-lg-letter-spacing: 0px;
+  --interactive-link-lg-line-height: 24px;
+  --interactive-link-lg-font-style: normal;
+  --shadow-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+ 
+.custom-alert {
+  position: absolute;
+  top: 72px;
+  right: 24px;
+  z-index: 999; /* Set z-index to a high value */
+  display: none;
+ 
+}
+ 
+.custom-alert .notification{
+  width: 508px;
+  height: 64px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 10px;
+  padding: 18px 24px;
+  border-radius: 4px;
+  border: solid 1px #8bd966;
+  background-color: #e7ffdc;
+}
+ 
+.email-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}

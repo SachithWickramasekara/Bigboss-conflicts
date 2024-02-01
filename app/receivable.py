@@ -75,4 +75,4 @@ def show_csv_receivable():
         return render_template('show_sales_CSV.html',records=data,colnames=columnNames)
     else:
         return redirect(url_for('auth.login'))
-        
+

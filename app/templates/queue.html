@@ -9,6 +9,18 @@
 
 <div class="yoo-content yoo-style1">
     <div class="yoo-padd-lr-30 yoo-uikits-heading">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="position-fixed" style="z-index: 9999; top: 6%; right: 5%;">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message}}
+                <button type="button" class="btn-close ml-5" data-bs-dismiss="alert" aria-label="Close">X</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
         <h2 class="yoo-uikits-title">My Queue</h2>
         <ul class="yoo-breadcamb yoo-style1 yoo-mp0">
           <li><a href="{{url_for('views.dashboard')}}">Home</a></li>
@@ -40,7 +52,8 @@
                                             <th>Uploaded Time</th>
                                             <th>Status</th>
                                             <th>Note</th>
-                                            <th></th>
+                                            <th>File Name</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,6 +80,7 @@
                                                 
                                             </td>
                                             <td>{{ j.comment }}</td>
+                                            <td>{{j.file_name}}</td>
                                             <td>
                                                 {% if j.status!="Created" %}
                                                 <div class="yoo-table-more-option text-center">
@@ -138,4 +152,17 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    setTimeout(function () {
+        document.querySelectorAll('.alert').forEach(function (alert) {
+            new bootstrap.Alert(alert).close();
+        });
+    }, 5000);
+</script>
+<script src="/static/assets/js/jquery.nestable.js"></script>
+
+{% endblock javascripts %}
+

@@ -6,6 +6,8 @@ import base64
 import requests
 import json
 import ast
+import boto3
+from io import BytesIO
 from datetime import datetime, timedelta
 from .utils import update_new_access_token_using_refresh , get_supplier_list ,get_supplier_using_name
 from pymongo import MongoClient 
@@ -15,9 +17,13 @@ mycollection = mydatabase['users']
 uploads=mydatabase["uploads"]
 from dotenv import load_dotenv
 load_dotenv()
-
+bucket_name=os.getenv("bucket_name")
+aws_access_key=os.getenv("Access_key_ID")
+aws_secret_key=os.getenv("Secret_access_key")
+region=os.getenv("region")
 x_auth=Blueprint("x_auth",__name__)
 b64_secret = base64.b64encode(bytes(os.getenv('client_id') + ':' + os.getenv('client_secret'), 'utf-8')).decode('utf-8')
+s3 = boto3.client('s3',aws_access_key_id=aws_access_key,aws_secret_access_key=aws_secret_key)
 
 @x_auth.route(rule="/login",methods=["GET","POST"])
 def get_first_auth_token():
@@ -27,7 +33,9 @@ def get_first_auth_token():
         'client_id': os.getenv('client_id'),
         'response_type': 'code',
         'redirect_uri': os.getenv('redirect_uri'),
-        'scope': 'openid profile email accounting.transactions offline_access',
+        'scope':'offline_access openid profile email accounting.transactions accounting.settings accounting.contacts accounting.attachments'
+                
+        # 'scope': 'openid profile email accounting.transactions offline_access',
         }
         authurazation_url = f"{auth_url}?{'&'.join([f'{key}={value}' for key, value in auth_params.items()])}"
         return redirect(authurazation_url)
@@ -98,8 +106,7 @@ def get_tenant():
 
 @x_auth.route(rule="/Invoice",methods=["POST"])
 def post_invoice():
-    # formdata=request.form.to_dict(flat=False)
-    # print(formdata,'this is form data')
+    invoice_number=request.form['bill_num']
     doc_name=request.form['doc_name']
     bill_date=request.form['bill_date']
     bill_date=bill_date.replace(" ","/")
@@ -131,7 +138,6 @@ def post_invoice():
     for j in user_data["tenant_list"]:
             if j["tenantName"]==session["company"]:
                 print("inside for loop for create suppliers")
-                print()
                 tenant_id=j['tenantId']
                 print(tenant_id)
     for i in range(len(get_description)):
@@ -143,55 +149,85 @@ def post_invoice():
         # data_row['total_amount']=get_total_ammout[i]
         data_row['UnitAmount']=get_unit_price[i]
         over_all_data.append(data_row)
-    # print(over_all_data)
-    # print(get_description,"this is data from invoice api checks")
-    #this is supposed to be get from frontend 
-    # supplier_id=get_supplier_list(session["user"],session["company"])
-    # supplier_id=get_supplier_list(session["user"],session["company"])
-    # print(supplier_id)
-    # test_id=""
-    # for i in supplier_id:
-    #     print(supplier_id)
+    
     invoice_data = {
     "Type": account_type,  # Accounts payable
     "Contact": {
         "ContactID": supplier_id  # Replace with an existing contact ID or create a new contact
     },
     "Date": due_date,#replace with line action
-    "DueDate": due_date,  # Adjust due date as needed
+    "DueDate": due_date, 
+    "InvoiceNumber":invoice_number, # Adjust due date as needed
     "LineItems" : over_all_data
-    # "LineItems": [
-    #     {
-    #         "Description": "Uchiha Hoodies",
-    #         "Quantity": 1,
-    #         "UnitAmount": 100.00,
-    #         "AccountCode": "200"  # Replace with the appropriate account code
-    #     }
-    #     # Add more line items as needed
-    # ]
     }
     data = json.dumps(invoice_data) 
     current_time_stamp=datetime.utcnow().strftime('%Y%m%d%H%M%S%f')
     mongo_data=mycollection.find_one({"user":session["user"]})
     if current_time_stamp>mongo_data['access_expired_time']:
         update_new_access_token_using_refresh(session["user"],mongo_data["refresh_token"])
-        # mongo_data=mycollection.find_one({"user":session["user"]})
     
     url = 'https://api.xero.com/api.xro/2.0/Invoices'
     headers = {
         'Authorization': 'Bearer ' + session['access_token'],
-        'Xero-tenant-id': tenant_id,#tenant id
+        'Xero-tenant-id': tenant_id,
         'Accept': 'application/json',
     }
     resp = requests.post(url=url, headers=headers, data=data)
     print(resp.content)
     if resp.status_code==200 and session['role']=="Admin":
-        uploads.update_one({'document_name':doc_name},{'$set':{'status':"Approved"}})
+        resp_json=resp.json()
+        print(resp.json())
+        xero_invoice_id=resp_json['Invoices'][0]['InvoiceID']
+        uploads.update_one({'document_name':doc_name},{'$set':{'status':"Approved","xero_invoice_id":xero_invoice_id}})
         print(resp.status_code,"posted on xero")
-        return redirect(url_for("views.dashboard"))
-    elif resp.status_code==200 and session['role']=="User":
-        uploads.update_one({'document_name':doc_name},{'$set':{'status':"Pending"}})
-        return redirect(url_for("views.dashboard"))
+        current_time_stamp=datetime.utcnow().strftime('%Y%m%d%H%M%S%f')
+        mongo_data=mycollection.find_one({"user":session["user"]})
+        if current_time_stamp>mongo_data['access_expired_time']:
+            update_new_access_token_using_refresh(session["user"],mongo_data["refresh_token"])
+        file_name=uploads.find_one({"document_name":doc_name})['file_name']
+        url = f"https://api.xero.com/api.xro/2.0/Invoices/{xero_invoice_id}/Attachments/{file_name}"
+        data=s3.get_object(Bucket=bucket_name,Key=f'PROCESSED/{doc_name}/{file_name}')
+        image_data_byte=data["Body"].read()
+        data=base64.b64encode(image_data_byte).decode("utf-8")
+        if file_name.endswith(".jpeg"):
+            headers = {
+            'Authorization': 'Bearer ' + session['access_token'],
+            'Xero-tenant-id': tenant_id,
+            'Accept': 'application/json',
+            'Content-Type': 'image/jpeg',
+            'ContentLength': str(len(image_data_byte)),
+            'MimeType':'image/jpeg',
+            }
+        elif file_name.endswith(".jpg"):
+            headers = {
+            'Authorization': 'Bearer ' + session['access_token'],
+            'Xero-tenant-id': tenant_id,
+            'Accept': 'application/json',
+            'Content-Type': 'image/jpg',
+            'ContentLength': str(len(image_data_byte)),
+            'MimeType':'image/jpg',
+            }
+        elif file_name.endswith(".png"):
+            headers = {
+            'Authorization': 'Bearer ' + session['access_token'],
+            'Xero-tenant-id': tenant_id,
+            'Accept': 'application/json',
+            'Content-Type': 'image/jpg',
+            'ContentLength': str(len(image_data_byte)),
+            'MimeType':'image/png',
+            }
+        print(bucket_name,f'processed/{doc_name}/{file_name}')
+        
+        # image_stream = BytesIO(image_data_byte)
+        # data = open(image_stream, 'rb')
+        second_resp = requests.post(url=url, headers=headers, data=data)
+        print(second_resp.content)
+        print(second_resp.json())
+        flash("Xero Upload Successful...",'info')
+        return redirect(url_for("queue.my_queue"))
+    # elif resp.status_code==200 and session['role']=="User":
+    #     uploads.update_one({'document_name':doc_name},{'$set':{'status':"Pending"}})
+    #     return redirect(url_for("views.dashboard"))
     else:
         return redirect(url_for('queue.my_queue'))
     # return {"response":str(resp)}

@@ -88,15 +88,23 @@ all_queries = [{
                                     "Alias": "DUE_DATE"
                                 },
                                 {
-                                    "Text": "What is total tax percent?",
+                                    "Text": "What is total Tax %?",
                                     "Alias": "TAX_PERCENT"
+                                },
+                                {
+                                    "Text": "What is the sub-total amount?",
+                                    "Alias": "SUB_TOTAL"
+                                },
+                                {
+                                    "Text": "What is the discount or coupon amount?",
+                                    "Alias": "DISCOUNT"
                                 },
                                 {
                                     "Text": "What is total GST?",
                                     "Alias": "TAX_AMOUNT"
                                 },
                                 {
-                                    "Text": "What is the total amount in the invoice?",
+                                    "Text": "What is total bill amount in invoice?",
                                     "Alias": "TOTAL"
             }]
 
@@ -238,17 +246,14 @@ def run_process(data):
         folder=next(iter(filtered_data))
         print(folder,"this data from run process")
         # doc_type = uploads.find_one({"document_name":folder},{"document_type":1,"_id":0})
-        doc_type=uploads.find_one({"document_name":folder})
+        # doc_type=uploads.find_one({"document_name":folder})
         # for d in doc_type:
         #     # print(d['document_type'])
         #     d_type=d["document_type"]
         try:
-            if doc_type["document_type"] == 'invoice':
-                text_data=invoice_to_json(data=filtered_data)
-            else:
-                text_data=invoice_to_json(data = filtered_data)
+            text_data=invoice_to_json(data = filtered_data)
             if text_data:
-                uploads.update_one({"document_name":folder},{'$set':{"line_item":text_data}})
+                uploads.update_one({"document_name":folder},{'$set':{"line_item":text_data,"status":'In-Progress'}})
                 print("updated in mongo")
                 move_to_processed(folder)
                 print(f"process finished for {folder}")

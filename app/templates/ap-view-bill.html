@@ -1,0 +1,443 @@
+{% extends "layouts/base.html" %}{% block title %} View Document {% endblock%}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <div class="yoo-content yoo-style1">
+      <div class="px-8 py-10">
+        <a href="{{url_for('bills.document_queue')}}">
+          <div class="flex flex-row items-center gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M10.5892 3.57739C10.9146 3.90283 10.9146 4.43047 10.5892 4.7559L6.17843 9.16665H15.8333C16.2935 9.16665 16.6666 9.53974 16.6666 9.99998C16.6666 10.4602 16.2935 10.8333 15.8333 10.8333H6.17843L10.5892 15.2441C10.9146 15.5695 10.9146 16.0971 10.5892 16.4226C10.2637 16.748 9.7361 16.748 9.41066 16.4226L3.57733 10.5892C3.25189 10.2638 3.25189 9.73616 3.57733 9.41072L9.41066 3.57739C9.7361 3.25195 10.2637 3.25195 10.5892 3.57739Z"
+                fill="#2C2C2C"
+              />
+            </svg>
+            <div class="secondary-heading">Back to Account Payable</div>
+          </div>
+        </a>
+        <div class="view-document-table-border my-8">
+          <div class="view-document-table-heading">Document Preview</div>
+          <div class="flex overflow-hidden py-8 bg-[#FAFAFA]">
+            <div class="h-[600px] overflow-auto px-8">
+              <img src="/static/assets/img/page-one.png" class="w-[210px]" />
+              <img src="../static/assets/img/page-two.png" class="w-[210px]" />
+              <img
+                src="/static/assets/img/page-three.png"
+                class="w-[210px]"
+              />
+              <img
+                src="/static/assets/img/page-three.png"
+                class="w-[210px]"
+              />
+              <img
+                src="/static/assets/img/page-three.png"
+                class="w-[210px]"
+              />
+            </div>
+            <div class="mx-auto">
+              <img
+                src="/static/assets/img/main-page.png"
+                class="w-[528px] h-[682px]"
+              />
+            </div>
+          </div>
+          <div
+            class="view-document-table-secondary-heading pt-12 pb-8 bg-[#FAFAFA] px-8"
+          >
+            Bill information
+          </div>
+          <div class="flex flex-col gap-10 bg-[#FAFAFA]">
+            <div class="w-full flex flex-row px-8 gap-10 bg-[#FAFAFA]">
+              <div class="flex flex-col w-full gap-2">
+                <span class="view-document-table-label">Document Type</span>
+                <select
+                  class="view-document-table-select-layout view-document-table-select-style view-document-table-select-typo px-2"
+                >
+                  <option value="receipt">Accounts Payable</option>
+                  <option value="invoice">Invoice</option>
+                  <option value="bill">Bill</option>
+                </select>
+              </div>
+              <div class="flex flex-col w-full gap-2">
+                <span class="view-document-table-label">Company Name</span>
+                <select
+                  class="view-document-table-select-layout view-document-table-select-style view-document-table-select-typo px-2"
+                >
+                  <option value="receipt">Kerner Norland</option>
+                  <option value="invoice">NorthLark</option>
+                  <option value="bill">BPO Solutions</option>
+                </select>
+              </div>
+            </div>
+            <div class="w-full flex flex-row px-8 gap-10 bg-[#FAFAFA]">
+              <div class="flex flex-col w-full gap-2">
+                <span class="view-document-table-label">Invoice Date</span>
+                <input
+                  type="text"
+                  placeholder="Jan 10,2019"
+                  class="view-document-table-select-layout view-document-table-select-style view-document-table-select-typo px-2"
+                />
+              </div>
+              <div class="flex flex-col w-full gap-2">
+                <span class="view-document-table-label">Due Date</span>
+                <input
+                  type="text"
+                  placeholder="Jan 10,2019"
+                  class="view-document-table-select-layout view-document-table-select-style view-document-table-select-typo px-2"
+                />
+              </div>
+            </div>
+            <div class="w-full flex flex-row px-8 gap-10 bg-[#FAFAFA]">
+              <div class="flex flex-col w-full gap-2">
+                <span class="view-document-table-label">Reference</span>
+                <input
+                  type="text"
+                  placeholder="3WQ1008PT10WZ"
+                  class="view-document-table-select-layout view-document-table-select-style view-document-table-select-typo px-2"
+                />
+              </div>
+              <div class="flex flex-col w-full gap-2">
+                <span class="view-document-table-label">Supplier Date</span>
+                <input
+                  type="text"
+                  placeholder="R S Clothing Private Limited"
+                  class="view-document-table-select-layout view-document-table-select-style view-document-table-select-typo px-2"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="view-document-table-secondary-heading pt-12 pb-8 bg-[#FAFAFA] px-8"
+          >
+            Itemized breakdown
+          </div>
+          <div class="px-8 bg-[#FAFAFA] pb-4">
+            <div class="bg-[#FAFAFA]">
+              <div class="view-document-table-heading flex">
+                <div class="flex-[2]">Description</div>
+                <div class="flex-[1]">Quantity</div>
+                <div class="flex-[1]">Unit Price</div>
+                <div class="flex-[1]">GST Applicable</div>
+                <div class="flex-[1]">GST Value</div>
+                <div class="flex-[1]">Subtotal</div>
+              </div>
+            </div>
+            <div
+              class="flex gap-2 px-8 bg-[#FAFAFA] px-3 py-2 border border-[#DFDFDF] shadow-medium"
+            >
+              <div class="flex-[2] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  Sweatshirt with embroidery
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  102
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  550.00
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <select
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo w-full h-full"
+                >
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  13.75
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  5,905.00
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex gap-2 px-8 bg-[#FAFAFA] px-3 py-2 border border-[#DFDFDF] shadow-medium"
+            >
+              <div class="flex-[2] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  Sweatshirt with embroidery
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  102
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  550.00
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <select
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo w-full h-full"
+                >
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  13.75
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  5,905.00
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex gap-2 px-8 bg-[#FAFAFA] px-3 py-2 border border-[#DFDFDF] shadow-medium"
+            >
+              <div class="flex-[2] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  Sweatshirt with embroidery
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  102
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  550.00
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <select
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo w-full h-full"
+                >
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  13.75
+                </div>
+              </div>
+              <div class="flex-[1] view-document-table-row">
+                <div
+                  class="view-document-table-button-layout view-document-table-button-style view-document-table-button-typo"
+                >
+                  5,905.00
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex justify-end items-center table-row-secondary-table p-3 shadow-md"
+            >
+              <div class="text-[20px] text-[#212121] font-[700] w-[132px]">
+                Total
+              </div>
+              <div class="text-[20px] text-[#212121] font-[700] w-[146px]">
+                5905.00
+              </div>
+            </div>
+          </div>
+          <div class="px-8 bg-[#FAFAFA] text-[18px] font-[400] text-[#212121]">
+            Notes
+          </div>
+          <div class="px-8 bg-[#FAFAFA] pb-4">
+            <textarea
+              class="bg-[#FAFAFA] border border-[#DFDFDF] p-2 shadow-medium"
+              placeholder="Enter any additional comments"
+            ></textarea>
+          </div>
+          <div class="px-8 bg-[#FAFAFA] pb-4">
+            <span class="text-[18px] font-[400]"
+              >Last modified on 20 Apr 11:41am by</span
+            >
+            <span class="text-[18px] font-[700]"> Aria Wright</span>
+          </div>
+          <div
+            class="flex flex-row items-center justify-between px-8 bg-[#FAFAFA] pb-5"
+          >
+            <div
+              class="delete-button cursor-pointer"
+              id="delete-trigger"
+              data-toggle="modal"
+              data-target="#deleteModal"
+            >
+              Delete
+            </div>
+            <div class="flex items-center gap-2">
+              <button class="flex items-center gap-2 save-button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.8376 3.35628C12.764 3.33861 12.6762 3.33326 12.2288 3.33326H6.66675V5.33326C6.66675 5.58036 6.6674 5.71557 6.67533 5.81273C6.67565 5.8166 6.67597 5.82026 6.67629 5.82371C6.67975 5.82403 6.68341 5.82435 6.68728 5.82467C6.78443 5.83261 6.91964 5.83326 7.16675 5.83326H12.8334C13.0805 5.83326 13.2157 5.83261 13.3129 5.82467C13.3168 5.82435 13.3204 5.82403 13.3239 5.82371C13.3242 5.82026 13.3245 5.8166 13.3248 5.81273C13.3328 5.71557 13.3334 5.58036 13.3334 5.33326V3.67996C13.1765 3.52635 13.1271 3.48587 13.0785 3.45606C13.0039 3.41036 12.9226 3.37669 12.8376 3.35628ZM15.0001 5.3451L15.0001 5.35982C15.0001 5.57014 15.0001 5.77498 14.986 5.94845C14.9704 6.13894 14.9337 6.36372 14.8184 6.58991C14.6586 6.90351 14.4037 7.15848 14.0901 7.31827C13.8639 7.43351 13.6391 7.47024 13.4486 7.4858C13.2751 7.49997 13.0703 7.49995 12.86 7.49992L7.16675 7.49992C7.15788 7.49992 7.14902 7.49992 7.14017 7.49992C6.92985 7.49995 6.72502 7.49997 6.55156 7.4858C6.36106 7.47024 6.13628 7.43351 5.9101 7.31827C5.59649 7.15848 5.34153 6.90351 5.18174 6.58991C5.06649 6.36372 5.02977 6.13894 5.0142 5.94845C5.00003 5.77498 5.00005 5.57015 5.00008 5.35983C5.00008 5.35098 5.00008 5.34212 5.00008 5.33326V3.35897C4.97489 3.36071 4.95019 3.36257 4.92595 3.36455C4.5606 3.3944 4.37376 3.4485 4.24343 3.51491C3.92983 3.6747 3.67486 3.92967 3.51507 4.24327C3.44866 4.3736 3.39456 4.56044 3.36471 4.92579C3.33406 5.30086 3.33342 5.78611 3.33342 6.49992V13.4999C3.33342 14.2137 3.33406 14.699 3.36471 15.0741C3.39456 15.4394 3.44866 15.6262 3.51507 15.7566C3.67486 16.0702 3.92983 16.3251 4.24343 16.4849C4.37376 16.5513 4.5606 16.6054 4.92595 16.6353C4.95019 16.6373 4.97489 16.6391 5.00008 16.6409L5.00008 12.14C5.00005 11.9297 5.00003 11.7249 5.0142 11.5514C5.02977 11.3609 5.06649 11.1361 5.18174 10.9099C5.34153 10.5963 5.5965 10.3414 5.9101 10.1816C6.13628 10.0663 6.36106 10.0296 6.55156 10.014C6.72502 9.99987 6.92985 9.9999 7.14017 9.99992H12.86C13.0703 9.9999 13.2751 9.99987 13.4486 10.014C13.6391 10.0296 13.8639 10.0663 14.0901 10.1816C14.4037 10.3414 14.6586 10.5963 14.8184 10.9099C14.9337 11.1361 14.9704 11.3609 14.986 11.5514C15.0001 11.7249 15.0001 11.9297 15.0001 12.14L15.0001 16.6409C15.0253 16.6391 15.05 16.6373 15.0742 16.6353C15.4396 16.6054 15.6264 16.5513 15.7567 16.4849C16.0703 16.3251 16.3253 16.0702 16.4851 15.7566C16.5515 15.6262 16.6056 15.4394 16.6355 15.0741C16.6661 14.699 16.6667 14.2137 16.6667 13.4999V7.77116C16.6667 7.32384 16.6614 7.236 16.6437 7.16241C16.6233 7.07738 16.5896 6.99609 16.5439 6.92153C16.5044 6.85699 16.4461 6.7911 16.1298 6.4748L15.0001 5.3451ZM14.2215 18.3315C14.595 18.3284 14.9232 18.3199 15.2099 18.2964C15.6784 18.2582 16.1089 18.176 16.5134 17.9699C17.1406 17.6504 17.6505 17.1404 17.9701 16.5132C18.1762 16.1088 18.2583 15.6782 18.2966 15.2098C18.3334 14.7588 18.3334 14.2051 18.3334 13.5343V7.77116C18.3334 7.74783 18.3334 7.72469 18.3335 7.70173C18.3338 7.36266 18.3341 7.0637 18.2643 6.77333C18.2031 6.51824 18.1021 6.27438 17.965 6.0507C17.809 5.79608 17.5974 5.58488 17.3574 5.34534C17.3412 5.32913 17.3248 5.31278 17.3083 5.29629L14.7037 2.69171C14.6872 2.67522 14.6709 2.65884 14.6547 2.6426C14.4151 2.40261 14.2039 2.19102 13.9493 2.03499C13.7256 1.89792 13.4818 1.79691 13.2267 1.73566C12.9363 1.66595 12.6373 1.66623 12.2983 1.66655C12.2753 1.66657 12.2522 1.66659 12.2288 1.66659L6.46567 1.66659C6.25812 1.66659 6.06179 1.66658 5.87625 1.66767C5.86206 1.66695 5.84778 1.66659 5.83342 1.66659C5.81502 1.66659 5.79677 1.66718 5.77868 1.66836C5.40521 1.67146 5.07697 1.67999 4.79023 1.70342C4.32181 1.74169 3.89123 1.82382 3.48678 2.0299C2.85957 2.34948 2.34964 2.85941 2.03006 3.48662C1.82398 3.89107 1.74185 4.32165 1.70358 4.79007C1.66673 5.24106 1.66674 5.7947 1.66675 6.46551V13.5343C1.66674 14.2051 1.66673 14.7588 1.70358 15.2098C1.74185 15.6782 1.82398 16.1088 2.03006 16.5132C2.34964 17.1404 2.85957 17.6504 3.48678 17.9699C3.89123 18.176 4.32181 18.2582 4.79023 18.2964C5.07697 18.3199 5.40521 18.3284 5.77867 18.3315C5.79677 18.3327 5.81502 18.3333 5.83342 18.3333C5.84778 18.3333 5.86206 18.3329 5.87625 18.3322C6.0618 18.3333 6.25814 18.3333 6.46569 18.3333H13.5345C13.742 18.3333 13.9384 18.3333 14.1239 18.3322C14.1381 18.3329 14.1524 18.3333 14.1667 18.3333C14.1851 18.3333 14.2034 18.3327 14.2215 18.3315ZM13.3334 16.6666V12.1666C13.3334 11.9195 13.3328 11.7843 13.3248 11.6871C13.3245 11.6832 13.3242 11.6796 13.3239 11.6761C13.3204 11.6758 13.3168 11.6755 13.3129 11.6752C13.2157 11.6672 13.0805 11.6666 12.8334 11.6666H7.16675C6.91964 11.6666 6.78443 11.6672 6.68728 11.6752C6.68341 11.6755 6.67975 11.6758 6.67629 11.6761C6.67597 11.6796 6.67565 11.6832 6.67533 11.6871C6.6674 11.7843 6.66675 11.9195 6.66675 12.1666V16.6666H13.3334Z"
+                    fill="#2C2C2C"
+                  />
+                </svg>
+                Save
+              </button>
+              <a href="{{url_for('bills.document_queue')}}">
+                <button class="flex items-center gap-2 verify-button">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_1601_7553)">
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M9.99992 2.50016C5.85778 2.50016 2.49992 5.85803 2.49992 10.0002C2.49992 14.1423 5.85778 17.5002 9.99992 17.5002C14.1421 17.5002 17.4999 14.1423 17.4999 10.0002C17.4999 5.85803 14.1421 2.50016 9.99992 2.50016ZM0.833252 10.0002C0.833252 4.93755 4.93731 0.833496 9.99992 0.833496C15.0625 0.833496 19.1666 4.93755 19.1666 10.0002C19.1666 15.0628 15.0625 19.1668 9.99992 19.1668C4.93731 19.1668 0.833252 15.0628 0.833252 10.0002ZM14.3392 6.91091C14.6646 7.23634 14.6646 7.76398 14.3392 8.08942L9.33917 13.0894C9.01374 13.4149 8.4861 13.4149 8.16066 13.0894L5.66066 10.5894C5.33523 10.264 5.33523 9.73634 5.66066 9.41091C5.9861 9.08547 6.51374 9.08547 6.83917 9.41091L8.74992 11.3217L13.1607 6.91091C13.4861 6.58547 14.0137 6.58547 14.3392 6.91091Z"
+                        fill="white"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_1601_7553">
+                        <rect width="20" height="20" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  Verify
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="deleteModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="createSubmissionModalLabel"
+        aria-hidden="true"
+      >
+        <div
+          class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="flex justify-between p-2 items-center">
+                <span class="text-[24px] font-[700] text-[#212121]"
+                  >Delete Document</span
+                >
+                <div data-dismiss="modal" class="cursor-pointer">
+                  <svg
+                    width="44"
+                    height="44"
+                    viewBox="0 0 44 44"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M28 16L16 28M16 16L28 28"
+                      stroke="#667085"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="modal-para">
+                  Are you sure you want to delete this document? This action
+                  cannot be undone.
+                </div>
+
+                <div class="flex w-full p-2 gap-2 justify-end">
+                  <button class="clear-button" data-dismiss="modal">
+                    Clear
+                  </button>
+                  <button class="delete-modal-button">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const deleteTrigger = document.getElementById("delete-trigger");
+    const deleteModal = document.getElementById("delete-modal");
+
+    deleteTrigger.addEventListener("click", () => {
+      deleteModal.style.display = "block";
+    });
+
+    deleteModal.querySelector(".close").addEventListener("click", () => {
+      deleteModal.style.display = "none";
+    });
+  </script>
+</html>
+
+{% endblock content %}

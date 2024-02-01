@@ -3,8 +3,45 @@ import numpy as np
 import uuid
 from datetime import datetime
 import re
+import os
 import copy
 import pandas as pd
+from difflib import get_close_matches
+from pymongo import MongoClient 
+from dotenv import load_dotenv
+load_dotenv(".env")
+
+client = MongoClient(os.getenv("mongo_connetion_string"))
+mydatabase = client["Bigboss"]
+acc_type = mydatabase['account_type'] 
+
+def closeMatches(patterns, word):
+     matches= get_close_matches(word, patterns)
+     if matches:
+      return matches[0]
+     else:
+      return None
+     
+def find_account_code(company):
+    company = company.title()
+    print(company)
+    try:
+        data = acc_type.find({"Name":company},{"Account Allocation":1,"_id":0})
+        for d in data:
+            c_code = d['Account Allocation']
+        return c_code
+    except:
+        c_code = ""
+        return c_code
+    
+def find_company_match(company):
+    try:
+        company_list = acc_type.distinct("Name")
+        company_list = [x.lower() for x in company_list]
+        c_name = closeMatches(company_list,company)
+        return c_name
+    except:
+        return False
 
 def extract_text(response, extract_by="WORD"):
     line_text = []
@@ -654,76 +691,107 @@ def table_to_json_new(table):
             return None
 
 def date_formatter(date):
-    if re.findall(r'\d{1,2}-\d{1,2}-\d{4}', date):
-        dt = datetime.strptime(date,"%d-%m-%Y")
-        format_date = dt.strftime("%Y-%m-%d")
-    elif re.findall(r'\d{1,2}/\d{1,2}/\d{4}', date):
-        dt = datetime.strptime(date,"%d/%m/%Y")
-        format_date = dt.strftime("%Y/%m/%d")
-    elif re.findall(r'\d{1,2} \d{1,2} \d{4}', date):
-        dt = datetime.strptime(date,"%d %m %Y")
-        format_date = dt.strftime("%Y %m %d")
-    elif re.findall(r'\d{4}-\d{1,2}-\d{1,2}', date):
-        dt = datetime.strptime(date,"%Y-%m-%d")
-        format_date = dt.strftime("%Y-%m-%d")
-    elif re.findall(r'\d{4}/\d{1,2}/\d{1,2}', date):
-        dt = datetime.strptime(date,"%Y/%m/%d")
-        format_date = dt.strftime("%Y/%m/%d")
-    elif re.findall(r"\d{1,2} [A-Z][a-z][a-z] \d{4}",date):
-        dt = datetime.strptime(date,"%d %b %Y")
-        format_date = dt.strftime("%Y %m %d") 
-    elif re.findall(r"\d{1,2}-[A-Z][a-z][a-z]-\d{4}",date):
-        dt = datetime.strptime(date,"%d-%b-%Y")
-        format_date = dt.strftime("%Y-%m-%d")
-    elif re.findall(r"\d{1,2} [A-Z][a-z][a-z] \d{4}",date):
-        dt = datetime.strptime(date,"%d %b %Y")
-        format_date = dt.strftime("%Y %m %d")
-    elif re.findall(r"\d{1,2} [A-Z][A-Z][A-Z] \d{4}",date):
-        dt = datetime.strptime(date,"%d %b %Y")
-        format_date = dt.strftime("%Y %m %d")
-    elif re.findall(r"\d{1,2}-[A-Z][A-Z][A-Z]-\d{4}",date):
-        dt = datetime.strptime(date,"%d-%b-%Y")
-        format_date = dt.strftime("%Y-%m-%d")
-    elif re.findall(r"\d{1,2}(?:th|st|nd|rd) [A-Z][A-Z][A-Z] \d{4}",date):
-        dt = datetime.strptime(date,"%d %b %Y")
-        format_date = dt.strftime("%Y %m %d")
-    elif re.findall(r"\d{1,2}(?:th|st|nd|rd) [A-Z][A-Z][A-Z] \d{2}",date):
-        match = re.search(r"(\d{2})(?:th|st|nd|rd) ([A-Z][A-Z][A-Z]) (\d{2})", date)
-        if match:
-            day = match.group(1)
-            year = match.group(3)
-            month = match.group(2)
-            date = day + " " + month + " " + "20"+year
-        dt = datetime.strptime(date,"%d %b %Y")
-        format_date = dt.strftime("%Y %m %d")
-    elif re.findall(r"\d{1,2}(?:th|st|nd|rd)-[A-Z][A-Z][A-Z]-\d{4}",date):
-        dt = datetime.strptime(date,"%d-%b-%Y")
-        format_date = dt.strftime("%Y-%m-%d")
-    elif re.findall(r"\d{1,2} (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4}",date):
-        dt = datetime.strptime(date,"%d %B %Y")
-        format_date = dt.strftime("%Y %m %d")
-    elif re.findall(r"\d{1,2}-(?:January|February|March|April|May|June|July|August|September|October|November|December)-\d{4}",date):
-        dt = datetime.strptime(date,"%d-%B-%Y")
-        format_date = dt.strftime("%Y-%m-%d")
-    elif re.findall(r"\d{1,2}(?:th|st|nd|rd) (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{2}",date):
-        match = re.search(r"(\d{2})(?:th|st|nd|rd) (?:January|February|March|April|May|June|July|August|September|October|November|December) (\d{2})", date)
-        if match:
-            day = match.group(1)
-            year = match.group(3)
-            month = match.group(2)
-            date = day + " " + month + " " + "20"+year
-        dt = datetime.strptime(date,"%d %B %Y")
-        format_date = dt.strftime("%Y %m %d")
-    elif re.findall(r"\d{1,2}-[A-Z][a-z][a-z]-\d{2}",date):
-        match = re.search(r"(\d{2})-([A-Z][a-z][a-z])-(\d{2})", date)
-        if match:
-            day = match.group(1)
-            year = match.group(3)
-            month = match.group(2)
-            date = day + " " + month + " " + "20"+year
-        dt = datetime.strptime(date,"%d %b %Y")
-        format_date = dt.strftime("%Y %m %d") 
-    else:
+    try:
+        if re.findall(r'\d{1,2}-\d{1,2}-\d{4}', date):
+            try:
+                dt = datetime.strptime(date,"%d-%m-%Y")
+                format_date = dt.strftime("%Y-%m-%d")
+            except:
+                dt = datetime.strptime(date,"%m-%d-%Y")
+                format_date = dt.strftime("%Y-%m-%d")
+        elif re.findall(r'\d{1,2}/\d{1,2}/\d{4}', date):
+            try:
+                dt = datetime.strptime(date,"%d/%m/%Y")
+                format_date = dt.strftime("%Y/%m/%d")
+            except:
+                dt = datetime.strptime(date,"%m/%d/%Y")
+                format_date = dt.strftime("%Y/%m/%d")
+        elif re.findall(r'\d{1,2} \d{1,2} \d{4}', date):
+            try:
+                dt = datetime.strptime(date,"%d %m %Y")
+                format_date = dt.strftime("%Y %m %d")
+            except:
+                dt = datetime.strptime(date,"%m %d %Y")
+                format_date = dt.strftime("%Y %m %d")
+        elif re.findall(r'\d{4}-\d{1,2}-\d{1,2}', date):
+            dt = datetime.strptime(date,"%Y-%m-%d")
+            format_date = dt.strftime("%Y-%m-%d")
+        elif re.findall(r'\d{4}/\d{1,2}/\d{1,2}', date):
+            dt = datetime.strptime(date,"%Y/%m/%d")
+            format_date = dt.strftime("%Y/%m/%d")
+        elif re.findall(r"\d{1,2} [A-Z][a-z][a-z] \d{4}",date):
+            dt = datetime.strptime(date,"%d %b %Y")
+            format_date = dt.strftime("%Y %m %d") 
+        elif re.findall(r"\d{1,2}-[A-Z][a-z][a-z]-\d{4}",date):
+            dt = datetime.strptime(date,"%d-%b-%Y")
+            format_date = dt.strftime("%Y-%m-%d")
+        elif re.findall(r"\d{1,2} [A-Z][a-z][a-z] \d{4}",date):
+            dt = datetime.strptime(date,"%d %b %Y")
+            format_date = dt.strftime("%Y %m %d")
+        elif re.findall(r"\d{1,2} [A-Z][A-Z][A-Z] \d{4}",date):
+            dt = datetime.strptime(date,"%d %b %Y")
+            format_date = dt.strftime("%Y %m %d")
+        elif re.findall(r"\d{1,2}-[A-Z][A-Z][A-Z]-\d{4}",date):
+            dt = datetime.strptime(date,"%d-%b-%Y")
+            format_date = dt.strftime("%Y-%m-%d")
+        elif re.findall(r"\d{1,2}(?:th|st|nd|rd) [A-Z][a-z][a-z] \d{4}",date):
+            match = re.search(r"(\d{2})[a-z][a-z] ([A-Z][a-z][a-z]) (\d{4})", date)
+            if match:
+                day = match.group(1)
+                year = match.group(3)
+                month = match.group(2)
+                date = day + " " + month + " " +year
+                print(date)
+            dt = datetime.strptime(date,"%d %b %Y")
+            format_date = dt.strftime("%Y %m %d")
+        elif re.findall(r"\d{1,2}(?:th|st|nd|rd) [A-Z][A-Z][A-Z] \d{2}",date):
+            match = re.search(r"(\d{2})[a-z][a-z] ([A-Z][A-Z][A-Z]) (\d{2})", date)
+            if match:
+                day = match.group(1)
+                year = match.group(3)
+                month = match.group(2)
+                date = day + " " + month + " " + "20"+year
+            dt = datetime.strptime(date,"%d %b %Y")
+            format_date = dt.strftime("%Y %m %d")
+        elif re.findall(r"\d{1,2}(?:th|st|nd|rd) [A-Z][a-z][a-z] \d{2}",date):
+            match = re.search(r"(\d{2})[a-z][a-z] ([A-Z][a-z][a-z]) (\d{2})", date)
+            if match:
+                day = match.group(1)
+                year = match.group(3)
+                month = match.group(2)
+                date = day + " " + month + " " + "20"+year
+            dt = datetime.strptime(date,"%d %b %Y")
+            format_date = dt.strftime("%Y %m %d")
+        elif re.findall(r"\d{1,2}(?:th|st|nd|rd)-[A-Z][A-Z][A-Z]-\d{4}",date):
+            dt = datetime.strptime(date,"%d-%b-%Y")
+            format_date = dt.strftime("%Y-%m-%d")
+        elif re.findall(r"\d{1,2} (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4}",date):
+            dt = datetime.strptime(date,"%d %B %Y")
+            format_date = dt.strftime("%Y %m %d")
+        elif re.findall(r"\d{1,2}-(?:January|February|March|April|May|June|July|August|September|October|November|December)-\d{4}",date):
+            dt = datetime.strptime(date,"%d-%B-%Y")
+            format_date = dt.strftime("%Y-%m-%d")
+        elif re.findall(r"\d{1,2}(?:th|st|nd|rd) (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{2}",date):
+            match = re.search(r"(\d{2})[a-z][a-z] (?:January|February|March|April|May|June|July|August|September|October|November|December) (\d{2})", date)
+            if match:
+                day = match.group(1)
+                year = match.group(3)
+                month = match.group(2)
+                date = day + " " + month + " " + "20"+year
+            dt = datetime.strptime(date,"%d %B %Y")
+            format_date = dt.strftime("%Y %m %d")
+        elif re.findall(r"\d{1,2}-[A-Z][a-z][a-z]-\d{2}",date):
+            match = re.search(r"(\d{2})-([A-Z][a-z][a-z])-(\d{2})", date)
+            if match:
+                day = match.group(1)
+                year = match.group(3)
+                month = match.group(2)
+                date = day + " " + month + " " + "20"+year
+            dt = datetime.strptime(date,"%d %b %Y")
+            format_date = dt.strftime("%Y %m %d") 
+        else:
+            format_date = date
+    except:
         format_date = date
     return format_date
 
@@ -749,36 +817,68 @@ def query_to_json(query_answers):
         invoice_date = date_formatter(query_answers['INVOICE_DATE'])
     else:
         invoice_date = ""
-    if('INVOICE_NO' in query_answers.keys()):
-        invoice_no = query_answers['INVOICE_NO']
-    else:
-        invoice_no = ""
     if('DUE_DATE' in query_answers.keys()):
         due_date = date_formatter(query_answers['DUE_DATE'])
     else:
         due_date = ""
+    if('INVOICE_NO' in query_answers.keys()):
+        invoice_no = query_answers['INVOICE_NO']
+    else:
+        if(invoice_date!=""):
+            invoice_no = invoice_date
+        elif(due_date!=""):
+            invoice_no = due_date
+        else:
+            invoice_no = ""
+    if('SUB_TOTAL' in query_answers.keys()):   
+        sub_total = float(extract_numbers(query_answers['SUB_TOTAL'])[0])
+    else:
+        sub_total = 0
+    if('DISCOUNT' in query_answers.keys()):   
+        discount = float(extract_numbers(query_answers['DISCOUNT'])[0])
+    else:
+        discount = 0
+    if('TAX_PERCENT' in query_answers.keys()):   
+        taxper = float(extract_numbers(query_answers['TAX_PERCENT'])[0])
+    else:
+        taxper = ""
     if('TOTAL' in query_answers.keys()):   
         total = float(extract_numbers(query_answers['TOTAL'])[0])
     else:
-        total = ""
+            total = 0
     if('TAX_AMOUNT' in query_answers.keys()):
         if("%" in query_answers['TAX_AMOUNT']):
             tax_percent = float(extract_numbers(query_answers['TAX_AMOUNT'])[0])
-            tax_amount = (tax_percent*total)/100
+            if(sub_total!=0):
+                tax_amount = (tax_percent*sub_total)/100
+            else:
+                tax_amount = (tax_percent*total)/100
         else:
             tax_percent = 10
             tax_amount = float(extract_numbers(query_answers['TAX_AMOUNT'])[0])
     else: 
-        tax_amount = ""
+        tax_amount = 0
         tax_percent=10
-
-    if((tax_amount!=0 and tax_amount !='') and total!=""):
-        taxable_amount = round((tax_amount*100)/tax_percent, 3)
-        if round(taxable_amount + tax_amount,0) == round(total,0):
-            non_taxable_amount = 0.0
+    if(total == 0 and sub_total!=0):
+        total = sub_total +tax_amount
+    if(company_name):
+        closest_comp_name = find_company_match(company_name.lower())
+        if(closest_comp_name):
+            acc_all_type = find_account_code(closest_comp_name)
         else:
-            non_taxable_amount = round(total - taxable_amount,3)
-    elif (tax_amount==0 or tax_amount =='') and total!="":
+            acc_all_type = ""
+    else:
+        acc_all_type = ""
+    if(sub_total!=0 and tax_amount!=0 and round(0.1*sub_total,2)==tax_amount and sub_total+tax_amount == total):
+        taxable_amount = sub_total
+        non_taxable_amount = 0
+    elif((tax_amount!=0 and tax_amount !='') and total!=0):
+        taxable_amount = round((tax_amount*100)/tax_percent, 3)
+        if (taxable_amount + tax_amount) == total or total - (taxable_amount + tax_amount)  <= 0.01:
+            non_taxable_amount = 0
+        else:
+            non_taxable_amount = round(total - taxable_amount,2)
+    elif (tax_amount==0 or tax_amount =='') and total!=0:
         non_taxable_amount = total
         taxable_amount = 0.0
     else: 
@@ -790,10 +890,13 @@ def query_to_json(query_answers):
             "invoice_no": invoice_no,
             "due_date": due_date,
             "tax_rate": tax_percent,
+            "Sub Total": sub_total,
             "Total Bill Amount": total,
             "Tax Amount": tax_amount,
-            "line_items": {"0":{"Description": company_name,"Quantity": 1.0 ,"UnitAmount": taxable_amount, "Tax Rate":"GST Expenses","TotalAmount": taxable_amount},
-            "1":{"Description": company_name,"Quantity": 1.0 ,"UnitAmount": non_taxable_amount, "Tax Rate":"GST Free", "TotalAmount": non_taxable_amount}}
+            "Tax Percent": taxper,
+            "Discount": discount,
+            "line_items": {"0":{"Description": company_name,"Quantity": 1.0 ,"UnitAmount": taxable_amount, "Tax Type":"Tax Applicable","Account Type": acc_all_type,"TotalAmount": taxable_amount},
+            "1":{"Description": company_name,"Quantity": 1.0 ,"UnitAmount": non_taxable_amount, "Tax Type":"Tax Not Applicable", "Account Type": acc_all_type, "TotalAmount": non_taxable_amount}}
           }
     
     y = json.dumps(obj)

@@ -126,3 +126,33 @@ def delete_users():
 @auth.route(rule="/in-progress")
 def inprogress_page():
     return render_template("in-progress.html")
+
+@auth.route(rule="/notifications")
+def notifications():
+    return render_template("notifications.html")
+ 
+ 
+@auth.route(rule="/other-notifications")
+def notificationsO():
+    return render_template("notifications-2.html")
+ 
+ 
+@auth.route(rule="/accounts-payable")
+def accountsPayable():
+    return render_template("accounts-payable.html")
+ 
+@auth.route(rule="/accounts-payable/view-bill")
+def accountsPayableViewBill():
+    return render_template("ap-view-bill.html")
+ 
+@auth.route(rule="/accounts-recievable")
+def accountsRecievable():
+    return render_template("accounts-recievable.html")
+ 
+@auth.route(rule="/accounts-recievable/view-bill")
+def accountsRecievableViewBill():
+    return render_template("ar-view-bill.html")
+ 
+@auth.route(rule="/email/password-reset")
+def emailPwReset():
+    return render_template("email-pw-reset.html")
