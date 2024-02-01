@@ -1,0 +1,115 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Form Elements {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="yoo-content yoo-style1">
+    <div class="yoo-padd-lr-30 yoo-uikits-heading">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="position-fixed" style="z-index: 9999; top: 6%; right: 5%;">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message}}
+                <button type="button" class="btn-close ml-5" data-bs-dismiss="alert" aria-label="Close">X</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <h2 class="yoo-uikits-title">Create Bill</h2>
+        <ul class="yoo-breadcamb yoo-style1 yoo-mp0">
+            <li><a href="{{url_for('views.dashboard')}}">Home</a></li>
+            <li>Create Bill</li>
+        </ul>
+    </div>
+    <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="yoo-card yoo-style1">
+                    <div class="yoo-card yoo-style1">
+                        <div class="yoo-card-heading">
+                            <div class="yoo-card-heading-left">
+                                <h2 class="yoo-card-title">Create Bill</h2>
+                            </div>
+                            <a href="{{url_for('x_auth.create_supplier')}}" class="btn btn-outline-info">Create
+                                Supplier</a>
+                        </div>
+                        <div class="yoo-card-body">
+                            <div class="yoo-padd-lr-30 yoo-alert-wrap">
+                                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+                                <form action="{{url_for('bills.create_bill_page')}}" method="post"
+                                    enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Company</label>
+                                        <input type="text" class="mb-3" id="exampleFormControlFile1" name="company"
+                                            value="{{session['company']}}" readonly>
+                                        <label for="exampleFormControlSelect1">Supplier Name</label>
+                                        <select class="form-control" id="exampleFormControlSelect1" name="supplier">
+
+                                            {% for i in supplier %}
+                                            {% for j in i%}
+                                            <option>{{j}}</option>
+                                            {% endfor %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <label for="exampleFormControlSelect1">Accounts Type</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" name="acc_type">
+                                        <option value="ACCPAY">Account Payable</option>
+                                        <option value="ACCREC">Account Receivable</option>
+                                    </select>
+                                    <div class="form-group yoo-cs-input-btn">
+                                        <label for="exampleFormControlFile1">Upload File</label>
+                                        <span>Chose File</span>
+                                        <input type="file" class="form-control-file" name="file[]"
+                                            id="exampleFormControlFile1" multiple>
+                                    </div>
+                                    <label for="exampleFormControlSelect1">Document Type</label>
+                                    <select class="form-control" id="exampleFormControlSelect1" name="doc_type">
+                                        <option value="receipt">Receipt Stubs</option>
+                                        <option value="invoice">Invoice</option>
+                                    </select>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Comments</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                            name="comment"></textarea>
+                                    </div>
+
+
+
+                                    <button class="btn btn-info" type="submit">Upload Bill</button>
+                                </form>
+                                <div class="yoo-height-b15 yoo-height-lg-b15"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    setTimeout(function () {
+        document.querySelectorAll('.alert').forEach(function (alert) {
+            new bootstrap.Alert(alert).close();
+        });
+    }, 5000);
+</script>
+<script src="/static/assets/js/jquery.nestable.js"></script>
+
+{% endblock javascripts %}

@@ -1,0 +1,1243 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="yoo-content yoo-style1">
+  <div class="yoo-padd-lr-30 yoo-uikits-heading">
+    <h2 class="yoo-uikits-title">Dashboard</h2>
+    <ul class="yoo-breadcamb yoo-style1 yoo-mp0">
+      <li><a href="#">Home</a></li>
+      <li>Dashboard</li>
+    </ul>
+  </div>
+  <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+  <div class="container-fluid">
+    <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+    <div class="d-flex justify-content-between flex-wrap gap-3">
+      <div class="mb-2">
+        <div class="yoo-card yoo-style1 text-center px-3">
+          <div class="yoo-card-body">
+            <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+            <div class="yoo-iconbox yoo-style1">
+              <div class="yoo-iconbox-text">
+                <div class="yoo-active-device mb-2">
+                  <div class="yoo-card-title">Created</div>
+                </div>
+                <div class="yoo-iconbox-sub-heading">
+                  <div class="chart-card">
+                    <canvas id="yoo-chart-1" width="100" height="100"></canvas>
+                  </div>
+                </div>
+                <ul class="yoo-circle-stroke yoo-style1">
+                  {% for i in donut_data_created%}
+                  {% if i == 'labels' %}
+                  {% for j in donut_data_created[i] %}
+                  <li>
+                    <span class="yoo-circle-color"
+                      data-bulet-color="{{donut_data_created.backgroundColor[loop.index - 1]}}"></span>
+                    <span class=" yoo-circle-label">{{j}}</span>
+                  </li>
+                  {% endfor %}
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="yoo-card yoo-style1 text-center px-3">
+          <div class="yoo-card-body">
+            <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+            <div class="yoo-iconbox yoo-style1">
+              <div class="yoo-iconbox-text">
+                <div class="yoo-active-device mb-2">
+                  <div class="yoo-card-title">In-Progress</div>
+                </div>
+                <div class="yoo-iconbox-sub-heading">
+                  <div class="chart-card">
+                    <canvas id="yoo-chart-2" height="80" width="80"></canvas>
+                  </div>
+                </div>
+                <ul class="yoo-circle-stroke yoo-style1">
+                  {% for i in donut_data_in_progress%}
+                  {% if i == 'labels' %}
+                  {% for j in donut_data_in_progress[i] %}
+                  <li>
+                    <span class="yoo-circle-color"
+                      data-bulet-color="{{donut_data_in_progress.backgroundColor[loop.index - 1]}}"></span>
+                    <span class=" yoo-circle-label">{{j}}</span>
+                  </li>
+                  {% endfor %}
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="yoo-card yoo-style1 text-center px-3">
+          <div class="yoo-card-body">
+            <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+            <div class="yoo-iconbox yoo-style1">
+              <div class="yoo-iconbox-text">
+                <div class="yoo-active-device mb-2">
+                  <div class="yoo-card-title">Pending</div>
+                </div>
+                <div class="yoo-iconbox-sub-heading">
+                  <div class="chart-card">
+                    <canvas id="yoo-chart-3" height="80" width="80"></canvas>
+                  </div>
+                </div>
+                <ul class="yoo-circle-stroke yoo-style1">
+                  {% for i in donut_data_pending%}
+                  {% if i == 'labels' %}
+                  {% for j in donut_data_pending[i] %}
+                  <li>
+                    <span class="yoo-circle-color"
+                      data-bulet-color="{{donut_data_pending.backgroundColor[loop.index - 1]}}"></span>
+                    <span class=" yoo-circle-label">{{j}}</span>
+                  </li>
+                  {% endfor %}
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="yoo-card yoo-style1 text-center px-3">
+          <div class="yoo-card-body">
+            <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+            <div class="yoo-iconbox yoo-style1">
+              <div class="yoo-iconbox-text">
+                <div class="yoo-active-device mb-2">
+                  <div class="yoo-card-title">Approved</div>
+                </div>
+                <div class="yoo-iconbox-sub-heading">
+                  <div class="chart-card">
+                    <canvas id="yoo-chart-4" height="80" width="80"></canvas>
+                  </div>
+                </div>
+                <ul class="yoo-circle-stroke yoo-style1">
+                  {% for i in donut_data_approved%}
+                  {% if i == 'labels' %}
+                  {% for j in donut_data_approved[i] %}
+                  <li>
+                    <span class="yoo-circle-color"
+                      data-bulet-color="{{donut_data_approved.backgroundColor[loop.index - 1]}}"></span>
+                    <span class=" yoo-circle-label">{{j}}</span>
+                  </li>
+                  {% endfor %}
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="yoo-card yoo-style1 text-center px-3">
+          <div class="yoo-card-body">
+            <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+            <div class="yoo-iconbox yoo-style1">
+              <div class="yoo-iconbox-text">
+                <div class="yoo-active-device mb-2">
+                  <div class="yoo-card-title">Rejected</div>
+                </div>
+                <div class="yoo-iconbox-sub-heading">
+                  <div class="chart-card">
+                    <canvas id="yoo-chart-5" height="80" width="80"></canvas>
+                  </div>
+                </div>
+                <ul class="yoo-circle-stroke yoo-style1">
+                  {% for i in donut_data_rejected%}
+                  {% if i == 'labels' %}
+                  {% for j in donut_data_rejected[i] %}
+                  <li>
+                    <span class="yoo-circle-color"
+                      data-bulet-color="{{donut_data_rejected.backgroundColor[loop.index - 1]}}"></span>
+                    <span class=" yoo-circle-label">{{j}}</span>
+                  </li>
+                  {% endfor %}
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+                <div class="yoo-height-b25 yoo-height-lg-b25"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="yoo-card yoo-style1">
+          <div class="yoo-card-heading">
+            <div class="yoo-card-heading-left">
+              <h2 class="yoo-card-title">Sales Graph</h2>
+            </div>
+            <div class="yoo-card-heading-right">
+              <div class="yoo-card-heading-right">
+                <div class="yoo-custom-select-wrap yoo-style1">
+                  <select name="#" class="yoo-custom-select">
+                    <option value="classic-fit1">Weekly</option>
+                    <option value="classic-fit2">Monthly</option>
+                    <option value="classic-fit3">Yearly</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="yoo-card-body">
+            <div class="yoo-height-b15 yoo-height-lg-b15"></div>
+            <div class="yoo-padd-lr-30">
+              <div class="yoo-chart-heading yoo-style4">
+                <!-- <div class="yoo-chart-heading-left">
+                  <div class="yoo-chart-heading-in">
+                    <div class="yoo-chart-heading-title">
+                      <span>One time sale</span>
+                      <span>Subscription</span>
+                    </div>
+                    <div class="yoo-chart-heading-number">
+                      <span>$362,958.83</span>
+                      <span>$23,958.74</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="yoo-chart-heading-right">
+                  <a href="#" class="yoo-btn yoo-style3 yoo-color1">Reconcile All Items</a>
+                </div> -->
+              </div>
+            </div>
+            <div class="yoo-chart-wrap yoo-style11">
+              <div class="yoo-chart-in">
+                <canvas id="yoo-chart5-type4" height="96"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- .col -->
+      <div class="col-lg-4">
+        <div class="yoo-card yoo-style1 yoo-height-100p">
+          <div class="yoo-card-heading">
+            <div class="yoo-card-heading-left">
+              <h2 class="yoo-card-title">Sessions by Device</h2>
+            </div>
+          </div>
+          <div class="yoo-card-body">
+            <div class="yoo-chart-wrap yoo-style3">
+              <div class="yoo-chart-inside">
+                <div class="yoo-chart-in">
+                  <canvas id="yoo-chart3" height="220" width="220"></canvas>
+                </div>
+                <div class="yoo-active-device">
+                  <div class="yoo-active-device-per">{{(over_all_donut_data.data)|max}}</div>
+                  <div class="yoo-active-device-title">Overall</div>
+                </div>
+              </div>
+              <div class="yoo-height-b15 yoo-height-lg-b15"></div>
+              <ul class="yoo-circle-stroke yoo-style1">
+                {% for i in over_all_donut_data%}
+                {% if i == 'labels' %}
+                {% for j in over_all_donut_data[i] %}
+                <li>
+                  <span class="yoo-circle-color"
+                    data-bulet-color="{{over_all_donut_data.backgroundColor[loop.index - 1]}}"></span>
+                  <span class="yoo-circle-label">{{j}}</span>
+                </li>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- .col -->
+      <!-- <div class="col-lg-12">
+        <div class="yoo-card yoo-style1">
+          <div class="yoo-card-heading">
+            <div class="yoo-card-heading-left">
+              <h2 class="yoo-card-title">All-time Entries</h2>
+            </div>
+            <div class="yoo-card-heading-right">
+              <a href="#" class="yoo-btn yoo-style1 yoo-small">View All</a>
+            </div>
+          </div>
+          <div class="yoo-card-body">
+            <div class="table-responsive">
+              <div class="yoo-table yoo-style1 yoo-type1">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Basic Info</th>
+                      <th>Company</th>
+                      <th>Invoice #</th>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Total Ammount</th>
+                      <th>Sent</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="yoo-table-icon-box">
+                          <span class="yoo-checkbox yoo-style1 yoo-color2">
+                            <input type="checkbox" />
+                            <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                          </span>
+                          <img src="/static/assets/img/icon/icon1.png" alt="icon" class="yoo-table-icon" />
+                          <div class="yoo-table-icon-box-info">
+                            <h3 class="yoo-table-icon-title">Bob Dylan</h3>
+                            <span class="yoo-table-icon-text">Dylan@gmail.com</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Firebox</td>
+                      <td>121356</td>
+                      <td>27 Dec, 2020</td>
+                      <td>Service</td>
+                      <td>$65.23</td>
+                      <td>1</td>
+                      <td>
+                        <div class="yoo-tag-wrap yoo-style1">
+                          <a href="#" class="yoo-tag yoo-icon-color1">OVERDIEW</a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="yoo-table-more-option text-center"><i class="material-icons-outlined">more_horiz</i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="yoo-table-icon-box">
+                          <span class="yoo-checkbox yoo-style1 yoo-color2">
+                            <input type="checkbox" />
+                            <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                          </span>
+                          <img src="/static/assets/img/icon/icon2.png" alt="icon" class="yoo-table-icon" />
+                          <div class="yoo-table-icon-box-info">
+                            <h3 class="yoo-table-icon-title">Bob Dylan</h3>
+                            <span class="yoo-table-icon-text">Dylan@gmail.com</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Firebox</td>
+                      <td>121356</td>
+                      <td>27 Dec, 2020</td>
+                      <td>Service</td>
+                      <td>$65.23</td>
+                      <td>1</td>
+                      <td>
+                        <div class="yoo-tag-wrap yoo-style1">
+                          <a href="#" class="yoo-tag yoo-icon-color2">paid</a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="yoo-table-more-option text-center"><i class="material-icons-outlined">more_horiz</i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="yoo-table-icon-box">
+                          <span class="yoo-checkbox yoo-style1 yoo-color2">
+                            <input type="checkbox" />
+                            <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                          </span>
+                          <img src="/static/assets/img/icon/icon3.png" alt="icon" class="yoo-table-icon" />
+                          <div class="yoo-table-icon-box-info">
+                            <h3 class="yoo-table-icon-title">Bob Dylan</h3>
+                            <span class="yoo-table-icon-text">Dylan@gmail.com</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Firebox</td>
+                      <td>121356</td>
+                      <td>27 Dec, 2020</td>
+                      <td>Service</td>
+                      <td>$65.23</td>
+                      <td>1</td>
+                      <td>
+                        <div class="yoo-tag-wrap yoo-style1">
+                          <a href="#" class="yoo-tag yoo-icon-color1">OVERDIEW</a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="yoo-table-more-option text-center"><i class="material-icons-outlined">more_horiz</i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="yoo-table-icon-box">
+                          <span class="yoo-checkbox yoo-style1 yoo-color2">
+                            <input type="checkbox" />
+                            <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                          </span>
+                          <img src="/static/assets/img/icon/icon4.png" alt="icon" class="yoo-table-icon" />
+                          <div class="yoo-table-icon-box-info">
+                            <h3 class="yoo-table-icon-title">Bob Dylan</h3>
+                            <span class="yoo-table-icon-text">Dylan@gmail.com</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Firebox</td>
+                      <td>121356</td>
+                      <td>27 Dec, 2020</td>
+                      <td>Service</td>
+                      <td>$65.23</td>
+                      <td>1</td>
+                      <td>
+                        <div class="yoo-tag-wrap yoo-style1">
+                          <a href="#" class="yoo-tag yoo-icon-color2">Paid</a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="yoo-table-more-option text-center"><i class="material-icons-outlined">more_horiz</i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="yoo-table-icon-box">
+                          <span class="yoo-checkbox yoo-style1 yoo-color2">
+                            <input type="checkbox" />
+                            <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                          </span>
+                          <img src="/static/assets/img/icon/icon5.png" alt="icon" class="yoo-table-icon" />
+                          <div class="yoo-table-icon-box-info">
+                            <h3 class="yoo-table-icon-title">Bob Dylan</h3>
+                            <span class="yoo-table-icon-text">Dylan@gmail.com</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Firebox</td>
+                      <td>121356</td>
+                      <td>27 Dec, 2020</td>
+                      <td>Service</td>
+                      <td>$65.23</td>
+                      <td>1</td>
+                      <td>
+                        <div class="yoo-tag-wrap yoo-style1">
+                          <a href="#" class="yoo-tag yoo-icon-color1">OVERDIEW</a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="yoo-table-more-option text-center"><i class="material-icons-outlined">more_horiz</i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="yoo-table-icon-box">
+                          <span class="yoo-checkbox yoo-style1 yoo-color2">
+                            <input type="checkbox" />
+                            <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                          </span>
+                          <img src="/static/assets/img/icon/icon1.png" alt="icon" class="yoo-table-icon" />
+                          <div class="yoo-table-icon-box-info">
+                            <h3 class="yoo-table-icon-title">Bob Dylan</h3>
+                            <span class="yoo-table-icon-text">Dylan@gmail.com</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Firebox</td>
+                      <td>121356</td>
+                      <td>27 Dec, 2020</td>
+                      <td>Service</td>
+                      <td>$65.23</td>
+                      <td>1</td>
+                      <td>
+                        <div class="yoo-tag-wrap yoo-style1">
+                          <a href="#" class="yoo-tag yoo-icon-color1">OVERDIEW</a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="yoo-table-more-option text-center"><i class="material-icons-outlined">more_horiz</i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="yoo-table-icon-box">
+                          <span class="yoo-checkbox yoo-style1 yoo-color2">
+                            <input type="checkbox" />
+                            <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                          </span>
+                          <img src="/static/assets/img/icon/icon2.png" alt="icon" class="yoo-table-icon" />
+                          <div class="yoo-table-icon-box-info">
+                            <h3 class="yoo-table-icon-title">Bob Dylan</h3>
+                            <span class="yoo-table-icon-text">Dylan@gmail.com</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>Firebox</td>
+                      <td>121356</td>
+                      <td>27 Dec, 2020</td>
+                      <td>Service</td>
+                      <td>$65.23</td>
+                      <td>1</td>
+                      <td>
+                        <div class="yoo-tag-wrap yoo-style1">
+                          <a href="#" class="yoo-tag yoo-icon-color2">paid</a>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="yoo-table-more-option text-center"><i class="material-icons-outlined">more_horiz</i>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="yoo-table-footer">
+              <div class="yoo-table-footer-left">
+                <div class="yoo-table-footer-left-text">This report was generated on 23 Jan,2020 at 9:34:19 PM - <a
+                    href="#">Refresh Report</a></div>
+              </div>
+              <div class="yoo-table-footer-right">
+                <ul class="yoo-mp0 yoo-table-footer-list">
+                  <li>
+                    <span class="yoo-efl-title">Show Rows:</span>
+                    <div class="yoo-custom-select-wrap yoo-style1">
+                      <select name="#" class="yoo-custom-select">
+                        <option value="classic-fit1">10</option>
+                        <option value="classic-fit2">15</option>
+                        <option value="classic-fit3">20</option>
+                      </select>
+                    </div>
+                  </li>
+                  <li><span class="yoo-efl-title">Go to</span><input type="text" value="1"></li>
+                  <li>1 - 10 of 10</li>
+                  <li>
+                    <div class="yoo-navigation yoo-style1">
+                      <a href="#" class="yoo-prev"><i class="material-icons-outlined">keyboard_arrow_left</i></a>
+                      <a href="#" class="yoo-next"><i class="material-icons-outlined">keyboard_arrow_right</i></a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="yoo-card yoo-style1">
+          <div class="yoo-card-heading">
+            <div class="yoo-card-heading-left">
+              <h2 class="yoo-card-title">Active Tasks (4/7)</h2>
+            </div>
+          </div>
+          <div class="yoo-card-body">
+            <div class="yoo-padd-lr-15">
+              <div class="yoo-padd-lr-15 yoo-card-content-height1" data-scrollbar>
+                <div class="yoo-height-b20 yoo-height-lg-b20"></div>
+                <ul class="yoo-task-list yoo-style1 yoo-mp0">
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color1 yoo-box-50 yoo-radious50">
+                      <img src="/static/assets/img/contact/01.jpg" alt="01" />
+                    </div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1">
+                        <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      </div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3><a href="#">New Employee intro</a></h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color2 yoo-box-50">NW</div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1"><a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a></div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3><a href="#">Send email to CEO</a></h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color1 yoo-box-50 yoo-radious50">
+                      <img src="/static/assets/img/contact/05.jpg" alt="05" />
+                    </div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1"><a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a></div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3><a href="#">New Joing Employee Welcome kit</a></h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color4 yoo-box-50">NW</div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1"><a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a></div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3>
+                        <a href="#">Birthday Wish</a>
+                      </h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color1 yoo-box-50 yoo-radious50">
+                      <img src="/static/assets/img/contact/04.jpg" alt="04" />
+                    </div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1">
+                        <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      </div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3>
+                        <a href="#">New Joing Employee Welcome kit</a>
+                      </h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color1 yoo-box-50 yoo-radious50">
+                      <img src="/static/assets/img/contact/01.jpg" alt="01" />
+                    </div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1">
+                        <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      </div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3>
+                        <a href="#">Business Documentation Presentation</a>
+                      </h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color2 yoo-box-50">
+                      NW
+                    </div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1">
+                        <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      </div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3>
+                        <a href="#">Need a Web Develover for my Web Site</a>
+                      </h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color1 yoo-box-50 yoo-radious50">
+                      <img src="/static/assets/img/contact/05.jpg" alt="05" />
+                    </div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1">
+                        <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      </div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3>
+                        <a href="#">Business Documentation Presentation</a>
+                      </h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color4 yoo-box-50">
+                      NW
+                    </div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1">
+                        <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      </div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3>
+                        <a href="#">Need a Web Develover for my Web Site</a>
+                      </h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-task-checkmark">
+                      <span class="yoo-checkbox yoo-style1 yoo-color2">
+                        <input type="checkbox" />
+                        <span class="yoo-checkbox-icon"><i class="material-icons">done</i></span>
+                      </span>
+                    </div>
+                    <div class="yoo-task-icon yoo-flex yoo-icon-color1 yoo-box-50 yoo-radious50">
+                      <img src="/static/assets/img/contact/04.jpg" alt="04" />
+                    </div>
+                    <div class="yoo-task-text">
+                      <div class="yoo-height-b10 yoo-height-lg-b10"></div>
+                      <div class="yoo-tag-wrap yoo-style1">
+                        <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      </div>
+                      <div class="yoo-height-b5 yoo-height-lg-b5"></div>
+                      <h3>
+                        <a href="#">Business Documentation Presentation</a>
+                      </h3>
+                      <div class="yoo-ativity-time"><i class="far fa-clock"></i> Scheduled For 3.00 PM on Jan 2019</div>
+                    </div>
+                    <div class="yoo-button-group yoo-style2">
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">edit</i></a>
+                      <a href="#" class="yoo-btn yoo-style4"><i class="material-icons-outlined">delete</i></a>
+                    </div>
+                  </li>
+                </ul>
+                <div class="yoo-height-b20 yoo-height-lg-b20"></div>
+              </div>
+            </div>
+            <hr />
+            <a href="#" class="yoo-btn yoo-style2"> <i class="yoo-plus">+</i> Add New Task</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="yoo-card yoo-style1">
+          <div class="yoo-card-heading">
+            <div class="yoo-card-heading-left">
+              <h2 class="yoo-card-title">My Contacts</h2>
+            </div>
+          </div>
+          <div class="yoo-card-body">
+            <div class="yoo-padd-lr-15">
+              <div class="yoo-padd-lr-15 yoo-card-content-height1" data-scrollbar>
+                <div class="yoo-height-b20 yoo-height-lg-b20"></div>
+                <ul class="yoo-contact-list yoo-style1 yoo-mp0">
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color1 yoo-box-50">
+                      <img src="/static/assets/img/contact/03.jpg" alt="03" />
+                    </div>
+                    <div class="yoo-contact-text">
+                      <h3>Deborah Clarke</h3>
+                      <span>dc@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                      <span class="yoo-tag yoo-icon-color5"><i class="material-icons-outlined">more_horiz</i></span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color2 yoo-box-50">JB</div>
+                    <div class="yoo-contact-text">
+                      <h3>Jay Bryant</h3>
+                      <span>jb@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color1 yoo-box-50">
+                      <img src="/static/assets/img/contact/02.jpg" alt="02" />
+                    </div>
+                    <div class="yoo-contact-text">
+                      <h3>Rita Parks</h3>
+                      <span>rp@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color1 yoo-box-50">EB</div>
+                    <div class="yoo-contact-text">
+                      <h3>Eula Bailey</h3>
+                      <span>eb@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color3 yoo-box-50">
+                      DJ
+                    </div>
+                    <div class="yoo-contact-text">
+                      <h3>Darin Osborne</h3>
+                      <span>do@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color4 yoo-box-50">
+                      <img src="/static/assets/img/msg/msg2.png" alt="msg2" />
+                    </div>
+                    <div class="yoo-contact-text">
+                      <h3>Omio Brain</h3>
+                      <span>do@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color2 yoo-box-50">JB</div>
+                    <div class="yoo-contact-text">
+                      <h3>Jay Bryant</h3>
+                      <span>jb@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color1 yoo-box-50">
+                      <img src="/static/assets/img/contact/02.jpg" alt="02" />
+                    </div>
+                    <div class="yoo-contact-text">
+                      <h3>Rita Parks</h3>
+                      <span>rp@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="yoo-contact-icon yoo-flex yoo-icon-color1 yoo-box-50">EB</div>
+                    <div class="yoo-contact-text">
+                      <h3>Eula Bailey</h3>
+                      <span>eb@gmail.com</span>
+                    </div>
+                    <div class="yoo-tag-wrap yoo-style1">
+                      <a href="#" class="yoo-tag yoo-icon-color5">SIGN UP</a>
+                      <a href="#" class="yoo-tag yoo-icon-color5">TAGS</a>
+                    </div>
+                  </li>
+                </ul>
+                <div class="yoo-height-b20 yoo-height-lg-b20"></div>
+              </div>
+            </div>
+            <hr />
+            <a href="#" class="yoo-btn yoo-style2">REAL-TIME REPORT <i class="material-icons-outlined">navigate_next</i>
+            </a>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <!-- .row -->
+  </div>
+  <!-- .container-fluid -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"
+    integrity="sha512-qQjroLUrECkIaD3uyCRXt6y89TREldShuMpAguRnp8fUrNjVnqSlqGGtzdXy/1pDzLCH/+1q7aF+o5mBGc52Kg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+
+    var lineChartToolTips = {
+      displayColors: false,
+      mode: "nearest",
+      intersect: false,
+      position: "nearest",
+      xPadding: 8,
+      yPadding: 8,
+      caretPadding: 8,
+      backgroundColor: "#fff",
+      cornerRadius: 4,
+      titleFontSize: 13,
+      titleFontStyle: "normal",
+      bodyFontSize: 13,
+      titleFontColor: "#222",
+      bodyFontColor: "rgba(0, 0, 0, 0.7)",
+      borderWidth: 1,
+      borderColor: "rgba(0, 0, 0, 0.1)"
+    }
+    var scalesYaxes = [{
+      ticks: {
+        fontSize: 14,
+        fontColor: "rgba(0, 0, 0, 0.4)",
+        padding: 15,
+        beginAtZero: true,
+        autoSkip: false,
+        maxTicksLimit: 4
+      },
+      gridLines: {
+        color: "rgba(0, 0, 0, 0.1)",
+        zeroLineWidth: 1,
+        zeroLineColor: "transparent",
+        drawBorder: false,
+        tickMarkLength: 0
+      }
+    }]
+    var scalesXaxes = [{
+      ticks: {
+        fontSize: 14,
+        fontColor: "rgba(0, 0, 0, 0.4)",
+        padding: 5,
+        beginAtZero: true,
+        autoSkip: false,
+        maxTicksLimit: 4
+      },
+      gridLines: {
+        display: false
+      }
+    }];
+
+    // Completed Chart
+    var donut_data_created = JSON.parse('{{ donut_data_created | tojson | safe }}');
+    var ctx3 = document.querySelector("#yoo-chart-1").getContext("2d");
+    var myChart3 = new Chart(ctx3, {
+      type: "pie",
+      data: {
+        labels: donut_data_created.labels,
+        datasets: [{
+          backgroundColor: donut_data_created.backgroundColor,
+          hoverBackgroundColor: donut_data_created.hoverBackgroundColor,
+          data: donut_data_created.data,
+          borderWidth: 0,
+          hoverBorderColor: donut_data_created.hoverBackgroundColor,
+          hoverBorderWidth: 8
+        }]
+      },
+      options: {
+        cutoutPercentage: 60,
+        legend: false,
+        tooltips: lineChartToolTips
+      }
+    });
+
+    // In-Progress Chart
+    var donut_data_in_progress = JSON.parse('{{ donut_data_in_progress | tojson | safe }}');
+    var ctx3 = document.querySelector("#yoo-chart-2").getContext("2d");
+    var myChart3 = new Chart(ctx3, {
+      type: "pie",
+      data: {
+        labels: donut_data_in_progress.labels,
+        datasets: [{
+          backgroundColor: donut_data_in_progress.backgroundColor,
+          hoverBackgroundColor: donut_data_in_progress.hoverBackgroundColor,
+          data: donut_data_in_progress.data,
+          borderWidth: 0,
+          hoverBorderColor: donut_data_in_progress.hoverBackgroundColor,
+          hoverBorderWidth: 8
+        }]
+      },
+      options: {
+        cutoutPercentage: 60,
+        legend: false,
+        tooltips: lineChartToolTips
+      }
+    });
+
+    // Pending Chart
+    var donut_data_pending = JSON.parse('{{ donut_data_pending | tojson | safe }}');
+    var ctx3 = document.querySelector("#yoo-chart-3").getContext("2d");
+    var myChart3 = new Chart(ctx3, {
+      type: "pie",
+      data: {
+        labels: donut_data_pending.labels,
+        datasets: [{
+          backgroundColor: donut_data_pending.backgroundColor,
+          hoverBackgroundColor: donut_data_pending.hoverBackgroundColor,
+          data: donut_data_pending.data,
+          borderWidth: 0,
+          hoverBorderColor: donut_data_pending.hoverBackgroundColor,
+          hoverBorderWidth: 8
+        }]
+      },
+      options: {
+        cutoutPercentage: 60,
+        legend: false,
+        tooltips: lineChartToolTips
+      }
+    });
+
+    // Approved Chart
+    var donut_data_approved = JSON.parse('{{ donut_data_approved | tojson | safe }}');
+    var ctx3 = document.querySelector("#yoo-chart-4").getContext("2d");
+    var myChart3 = new Chart(ctx3, {
+      type: "pie",
+      data: {
+        labels: donut_data_approved.labels,
+        datasets: [{
+          backgroundColor: donut_data_approved.backgroundColor,
+          hoverBackgroundColor: donut_data_approved.hoverBackgroundColor,
+          data: donut_data_approved.data,
+          borderWidth: 0,
+          hoverBorderColor: donut_data_approved.hoverBackgroundColor,
+          hoverBorderWidth: 8
+        }]
+      },
+      options: {
+        cutoutPercentage: 60,
+        legend: false,
+        tooltips: lineChartToolTips
+      }
+    });
+
+    // Rejected Chart
+    var donut_data_rejected = JSON.parse('{{ donut_data_rejected | tojson | safe }}');
+    var ctx3 = document.querySelector("#yoo-chart-5").getContext("2d");
+    var myChart3 = new Chart(ctx3, {
+      type: "pie",
+      data: {
+        labels: donut_data_rejected.labels,
+        datasets: [{
+          backgroundColor: donut_data_rejected.backgroundColor,
+          hoverBackgroundColor: donut_data_rejected.hoverBackgroundColor,
+          data: donut_data_rejected.data,
+          borderWidth: 0,
+          hoverBorderColor: donut_data_rejected.hoverBackgroundColor,
+          hoverBorderWidth: 8
+        }]
+      },
+      options: {
+        cutoutPercentage: 60,
+        legend: false,
+        tooltips: lineChartToolTips
+      }
+    });
+
+    // Overall Chart
+    var over_all_donut_data = JSON.parse('{{ over_all_donut_data | tojson | safe }}');
+    var ctx3 = document.querySelector("#yoo-chart3").getContext("2d");
+    var myChart3 = new Chart(ctx3, {
+      type: "pie",
+      data: {
+        labels: over_all_donut_data.labels,
+        datasets: [{
+          backgroundColor: over_all_donut_data.backgroundColor,
+          hoverBackgroundColor: over_all_donut_data.hoverBackgroundColor,
+          data: over_all_donut_data.data,
+          borderWidth: 0,
+          hoverBorderColor: over_all_donut_data.hoverBackgroundColor,
+          hoverBorderWidth: 8
+        }]
+      },
+      options: {
+        cutoutPercentage: 60,
+        legend: false,
+        tooltips: lineChartToolTips
+      }
+    });
+
+
+
+  </script>
+
+  <script>
+    var bar_data = JSON.parse('{{ bar_data | tojson | safe }}');
+
+    var ctx5 = document.querySelector("#yoo-chart5-type4");
+    var myChart5 = new Chart(ctx5, {
+      type: "bar",
+      data: {
+        labels: bar_data.labels,
+        datasets: [{
+          label: "Orders",
+          data: bar_data.data,
+          backgroundColor: bar_data.backgroundColor,
+          borderColor: bar_data.hoverBackgroundColor,
+          borderWidth: 3,
+          pointBackgroundColor: "#fff",
+          pointDotRadius: 10
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: false,
+        tooltips: lineChartToolTips,
+        scales: {
+          yAxes: [{
+            position: "left",
+            ticks: {
+              fontSize: 14,
+              fontColor: "rgba(0, 0, 0, 0.4)",
+              padding: 15,
+              autoSkip: false,
+              maxTicksLimit: 6,
+              beginAtZero: true,
+              steps: 10,
+              stepValue: 5,
+              max: 40
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, 0.1)",
+              zeroLineWidth: 0,
+              zeroLineColor: "transparent",
+              drawBorder: false,
+              tickMarkLength: 0
+            }
+          }],
+          xAxes: scalesXaxes
+        },
+        elements: {
+          point: {
+            radius: 0
+          }
+        }
+      }
+    });
+
+  </script>
+  <div class="yoo-height-b60 yoo-height-lg-b60"></div>
+
+  {% include 'includes/footer.html' %}
+
+</div>
+
+
+<!-- <div class="yoo-content yoo-style1">
+
+  <div class="yoo-height-b30 yoo-height-lg-b30"></div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="yoo-sectin-heading yoo-style1">
+          <div class="yoo-sectin-heading-left">
+            <h2 class="yoo-section-title">
+              Dashboard
+            </h2>
+
+
+            <h5>donut data</h5>
+            {{over_all_donut_data}}
+            <h5>bar data</h5>
+            {{bar_data}}
+            <h5>donut data created</h5>
+            {{donut_data_created}}
+            <h5>donut data inprogress</h5>
+            {{donut_data_in_progress}}
+            <h5>donut data pending</h5>
+            {{donut_data_pending}}
+            <h5>donut data approved</h5>
+            {{donut_data_approved}}
+            <h5>donut data rejected</h5>
+            {{donut_data_rejected}}
+          </div>
+          {% endblock %} -->
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
